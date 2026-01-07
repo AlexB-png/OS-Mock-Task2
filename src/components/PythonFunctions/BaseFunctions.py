@@ -16,3 +16,6 @@ class Databases:
 
   login = "Accounts"
   bank = "Bank_Details"
+
+class Colors:
+  red = rgb
