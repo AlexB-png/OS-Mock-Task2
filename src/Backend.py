@@ -17,11 +17,12 @@ def CreateAccount():
   ##
 
   ## Returns a status message based on success or failure
-  status = CreateLogin(username, password)
+  status, Color = CreateLogin(username, password)
   ##
   
   ## Send the status back to the frontend 
-  return jsonify({"Status": status})
+  return jsonify({"Status": status,
+  "Color": Color})
   ##
 
 @app.route("/login", methods=["POST"])
@@ -36,12 +37,13 @@ def Login():
   ##
 
   ## Returns a status message based on success or failure
-  status, message = LoginCheck(username, password)
+  status, message, color = LoginCheck(username, password)
   ##
   
   ## Send the status back to the frontend 
   return jsonify({"Status": status,
-    "Message": message})
+    "Message": message,
+    "Color":color})
   ##
 
 if __name__ == "__main__":

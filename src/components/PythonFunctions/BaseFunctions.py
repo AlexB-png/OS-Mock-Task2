@@ -18,4 +18,6 @@ class Databases:
   bank = "Bank_Details"
 
 class Colors:
-  red = rgb
+  red = "rgb(255,51,0)"
+  green = "rgb(0,304,0)"
+  lime = "rgb(153,255,153)"

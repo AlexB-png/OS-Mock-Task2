@@ -1,4 +1,4 @@
-from .BaseFunctions import Databases, connect
+from .BaseFunctions import Databases, connect, Colors
 import sqlite3 as sql
 import bcrypt
 
@@ -16,13 +16,13 @@ def LoginCheck(username, password):
 
     ## If the hashed password in Database matches bytes 
     if bcrypt.checkpw(byte, data[0][0]):  ## data is stored as [(DATA)] ##
-      return True, "Successfully Logged In"
+      return True, "Successfully Logged In", Colors.green
     else:
-      return False, "Incorrect Password"
+      return False, "Incorrect Password", Colors.red
     ##
   else:
     ## Return False if the input username doesnt exist ##
-    return False, "Username Does Not Exist"
+    return False, "Username Does Not Exist", Colors.red
 ##
 
 ## Create an account ##
@@ -31,9 +31,9 @@ def CreateLogin(username, password):
 
   ## Pass must be 8 characters or more
   if len(password) < 8:
-    return "Password must be 8+ characters"
+    return "Password must be 8+ characters", Colors.red
   elif len(username) < 5:
-    return "Username needs to be 5+ characters"
+    return "Username needs to be 5+ characters", Colors.red
   ##
 
   ## Hash the password
@@ -53,9 +53,9 @@ def CreateLogin(username, password):
     connection.commit()
     connection.close()
     
-    return "Successfully created "
+    return "Successfully created", Colors.green
   except sql.IntegrityError:  ## If there is no possible UNIQUE username key ##
     connection.close()
-    return "Username is already in use"
+    return "Username is already in use", Colors.red
   ##
 ##

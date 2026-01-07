@@ -9,6 +9,10 @@
     font-style: normal;
   }
 
+  html {
+    font-size: 1vw;
+  }
+
   body {
     margin: 0;
   }
@@ -41,16 +45,35 @@
     flex-direction: column;
     gap: 5vh;
 
+    @media (max-width: 1024px) {
+      width: 60vw;
+    }
+
     h1 , h2 {
       color: rgb(65, 57, 0);
     }
 
     button {
       width: 10vw;
-      height: 5vh;
+      height: 5vw;
 
       border-radius: 5px;
+
+      font-size: 1vw;
     }
+
+    input {
+      width: 20vw;
+      height: 5vh;
+
+      font-size: 2rem;
+    }
+  }
+
+  .center {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 </style>
 
@@ -59,12 +82,12 @@
     <div class="content">
       <h1 class="montserrat">Login Page!</h1>
 
-      <div>
+      <div class="center">
         <h2>Username:</h2>
         <input type="text" name="username" id="userInput">
       </div>
 
-      <div>
+      <div class="center">
         <h2>Password:</h2>
         <input type="password" id="passInput">
       </div>
@@ -75,7 +98,7 @@
       </div>
 
       <div>
-        <h1>{{ status }}</h1>
+        <h1 v-bind:style="{color: statusColor}">{{ status }}</h1>
       </div>
     </div>
   </main>
@@ -85,6 +108,7 @@
   import { ref } from 'vue'
   
   const status = ref("")
+  const statusColor = ref("rgb(0,0,0)")
   
   async function createAccount() {
     // Get username and password from the inputs 
@@ -111,6 +135,7 @@
 
     // Updates the status text
     status.value = request["Status"]
+    statusColor.value = request["Color"]
     //
   }
 
@@ -139,6 +164,7 @@
 
     // Update the status text
     status.value = request["Message"]
+    statusColor.value = request["Color"]
     //
   }
 </script>
