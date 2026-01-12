@@ -84,6 +84,20 @@
         padding-top: 10vh;
       }
 
+      .hotelEvent, .zooEvent {
+        height: 80vh;
+        width: 35vw;
+        background-color: rgb(248, 172, 144);
+        border-radius: 20px;
+
+        backdrop-filter: blur(4px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        flex-direction: column;
+      }
       
   }
 </style>
@@ -105,6 +119,21 @@
           </p>
         </div>
         <img src="../../assets/redPanda.jpg" alt="Red Panda" class="zooImage">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="hotelEvent">
+        <h1 style="text-decoration: underline;">Hotel Events</h1>
+      </div>
+
+      <div class="zooEvent">
+        <h1 style="text-decoration: underline;">Zoo Events</h1>
+        <h2>January 17th Bird Watching</h2>
+        <h2>January 23rd Tractor Ride</h2>
+        <h2>January 31st Honey Tasting</h2>
+        <h2>February 5th 24 hour open</h2>
+        <h2>February 11th Bear Woods Opens</h2>
       </div>
     </div>
 
