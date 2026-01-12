@@ -1,3 +1,10 @@
 giraffe.jpg
 Guangzhou Zoo
 https://www.tripadvisor.co.uk/Attraction_Review-g298555-d550329-Reviews-Guangzhou_Zoo-Guangzhou_Guangdong.html#/media/550329/?type=ALL_INCLUDING_RESTRICTED&albumid=-160&category=-160
+
+pub.jpg
+hotelRoom.avif
+https://www.tui.co.uk/hotels/the-bridge-greenford-a1945587/?numberOfNights=2&passengers=30,30&locationName=London&locationId=ChIJdd4hrwug2EcRmSrV3Vo6llI&locationCoordinates=51.67234324898703,51.38494012429096,0.1482710335611201,-0.3514683384218145&center=51.5072178,+-0.1275862&startDate=2026-01-26&endDate=2026-01-28&sourcing=DYNAMIC&productId=5d9fbd58-3528-4e49-ab36-8b55e3adedc1&boardCode=GT06-BR&supplierRoomId=dd9d18bb-18be-422c-a280-800029cec524&productAccommodationUnitId=not-available-in-dynamic&finalPosition=11&rateType=FULL_FLEX&selectedDuration=2&selectedStartDate=2026-01-26&travellers=2&duration=2
+
+redPanda.jpg
+https://www.visitdevon.co.uk/listing/exmoor-zoo/230009301/
