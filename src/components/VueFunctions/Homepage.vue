@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     scrollbar-gutter: stable;
-    font-size: clamp(5px,2vw,13px);
+    font-size: 1vw
   }
 </style>
 
@@ -13,7 +13,7 @@
   }
 
     .content {
-      background-color: rgb(180, 255, 242);
+      background-color: rgba(265, 247, 239);
       
       padding-top: 10vh;
       
@@ -23,13 +23,19 @@
       flex-direction: column;
       gap: 3vh;
 
+      
+
       align-items: center;
       justify-content: center;
 
-      .row1, .row2 {
+      .row1, .row2, .row3 {
         display: flex;
         flex-direction: row;
         gap: 3vw;
+
+        @media (max-width: 1024px) {
+          flex-direction: column;
+        }
       }
 
       .row {
@@ -38,9 +44,11 @@
       }
 
       .hotel, .zoo {
-        height: 80vh;
+        height: clamp(0px,80vw,600px);
         width: 35vw;
-        background-color: coral;
+        background-color: #A8BBA3;
+
+        color: rgb(91, 108, 62);
         border-radius: 20px;
 
         backdrop-filter: blur(4px);
@@ -50,11 +58,19 @@
         align-items: center;
 
         flex-direction: column;
+
+        @media (max-width: 1024px) {
+          width: 60vw;
+        }
       }
 
       .hotelImg {
         width: 30vw;
         border-radius: 10px;
+
+        @media (max-width: 1024px) {
+          width: 40vw;
+        }
       }
 
       .hotelText, .zooText {
@@ -62,7 +78,11 @@
         padding-right: 2vw;
         text-align: center;
 
-        font-size: 2rem;
+        font-size: 1.5rem;
+
+        @media (max-width: 1024px) {
+          font-size: 3rem;
+        }
       }
 
       .hotelLink {
@@ -73,6 +93,10 @@
       .zooImage {
         width: 25vw;
         border-radius: 10px;
+
+        @media (max-width: 1024px) {
+          width: 35vw;
+        }
       }
 
       .zooTextDiv {
@@ -85,9 +109,10 @@
       }
 
       .hotelEvent, .zooEvent {
-        height: 80vh;
+        height: clamp(0px,80vw,600px);;
         width: 35vw;
-        background-color: rgb(248, 172, 144);
+        background-color: #B87C4C;
+        
         border-radius: 20px;
 
         backdrop-filter: blur(4px);
@@ -97,6 +122,66 @@
         align-items: center;
 
         flex-direction: column;
+
+        @media (max-width: 1024px) {
+          width: 60vw;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          color: rgb(154, 74, 16);
+
+          @media (max-width: 1024px) {
+            font-size: 2.5rem;
+          }
+        }
+
+        h1 {
+          color: rgb(124, 74, 16);
+          font-size: 3rem;
+
+          @media (max-width: 1024px) {
+            font-size: 5.5rem;
+          }
+        }
+      }
+
+      .row3 {
+        background-color: #A8BBA3;
+        width: 73vw;
+        height: clamp(0px,60vw,600px);
+        border-radius: 20px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        text-align: center;
+        
+
+        h1 {
+          color: #437057;
+
+          @media (max-width: 1024px) {
+            font-size: 5.5rem;
+          }
+        }
+
+        p {
+          font-size: 2rem;
+
+          color: rgb(91, 108, 62);
+
+          @media (max-width: 1024px) {
+            font-size: 3rem;
+          }
+        }
+
+        .row3Text {
+          padding-left: 2vw;
+          padding-right: 2vw;
+        }
       }
       
   }
@@ -124,16 +209,29 @@
 
     <div class="row2">
       <div class="hotelEvent">
-        <h1 style="text-decoration: underline;">Hotel Events</h1>
+        <h1 style="text-decoration: underline; padding-bottom: 5vh; font-size: 3rem;" class="montserrat">Hotel Events</h1>
+        <h2 class="montserrat">6 Am - 12 Pm  -  Breakfast</h2>
+        <h2 class="montserrat">12 Pm - Bar Opens</h2>
+        <h2 class="montserrat">12 Pm - 1 Pm - Lunch</h2>
+        <h2 class="montserrat">1 Pm - 6 Pm - Dinner</h2>
+        <h2 class="montserrat">7 Pm - Party Rooms Open</h2>
+        <h2 class="montserrat">2 Am - Final drinks</h2>
       </div>
 
       <div class="zooEvent">
-        <h1 style="text-decoration: underline;">Zoo Events</h1>
-        <h2>January 17th Bird Watching</h2>
-        <h2>January 23rd Tractor Ride</h2>
-        <h2>January 31st Honey Tasting</h2>
-        <h2>February 5th 24 hour open</h2>
-        <h2>February 11th Bear Woods Opens</h2>
+        <h1 style="text-decoration: underline; padding-bottom: 5vh;" class="montserrat">Zoo Events</h1>
+        <h2 class="montserrat">January 17th - Bird Watching</h2>
+        <h2 class="montserrat">January 23rd - Tractor Ride</h2>
+        <h2 class="montserrat">January 31st - Honey Tasting</h2>
+        <h2 class="montserrat">February 5th - 24 hour open</h2>
+        <h2 class="montserrat">February 11th - Bear Woods Opens</h2>
+      </div>
+    </div>
+
+    <div class="row3">
+      <div class="row3Text">
+        <h1 style="text-decoration: underline;" class='montserrat'>Educational Trips</h1>
+        <p class="montserrat">We also offer educational trips for large school groups (8+ students) with extra views of all of our animals, extra interactions with the animals and an experienced and educated professional to educate students about the animals diets and the way they act both in containment and in the wild.</p>
       </div>
     </div>
 

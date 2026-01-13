@@ -28,10 +28,7 @@
     align-items: center;
     margin:0;
 
-    background-image: url(../../assets/giraffe.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: #F7F6D3;
 
     height: 100vh;
   }
@@ -43,8 +40,7 @@
     height: 80vh;
     width: 35vw;
 
-    background-color: rgba(200,200,200,0.5);
-    backdrop-filter: blur(4px);
+    background-color: #C7DB9C;
     border-radius: 20px;
 
     flex-direction: column;
@@ -55,7 +51,10 @@
     }
 
     h1 , h2 {
-      color: rgb(0, 0, 0);
+      color: #626F47;
+      font-size: 2rem;
+
+      height: 1vw;
     }
 
     button {
@@ -114,12 +113,12 @@
 
   export default {
     name: 'LoginPage',
-      setup() {
+      setup(_, { emit }) {
         let status = ref("")
         let statusColor = ref("rgb(0,0,0)")
         let username = ref("")
         let password = ref("")
-    
+
     async function createAccount() {
       // Get username and password from the inputs 
       let username = document.getElementById("userInput").value
@@ -176,6 +175,11 @@
       status.value = request["Message"]
       statusColor.value = request["Color"]
       //
+
+      if (status.value == 'Successfully Logged In') {
+        emit('updateTopBar', username)
+        console.log(username)
+      }
     }
 
     return { username, password, status, statusColor, loginButton, createAccount }
