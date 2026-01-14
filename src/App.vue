@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <router-view @updateTopBar="updateTopBar" :user-name="username"></router-view>
+    <router-view @updateTopBar="updateTopBar" @updatePrice="updatePrice" :user-name="username" :total-price="totalPrice"></router-view>
   </main>
 </template>
 
@@ -62,8 +62,10 @@
       const username = ref("")
       const usernameTopBar = ref("Not Logged In");
       const color = ref("rgb(100,0,0)");
+      const totalPrice = ref(0);
 
       // Update the username on the top bar
+      // Emit message from LoginPage.vue //
       const updateTopBar = (user) => {
         usernameTopBar.value = user;
         username.value = user;
@@ -71,7 +73,12 @@
         console.log(user)
       }
 
-      return { username , usernameTopBar , color , updateTopBar};
+      // Emit message from HotelBooking.vue //
+      const updatePrice = (newPrice) => {
+        totalPrice.value = newPrice;
+      }
+
+      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice};
     }
   }
 </script>
