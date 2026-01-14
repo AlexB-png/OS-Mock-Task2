@@ -89,7 +89,7 @@
             }
 
             input {
-              width: 18vw;
+              width: 38.5vw;
               height: 3rem;
               font-size: 2rem;
 
@@ -97,6 +97,11 @@
 
               font-family: "montserrat";
               font-weight: 500;
+            }
+          }
+          .date {
+            input {
+              width: 18vw;
             }
           }
         }
@@ -135,14 +140,15 @@
             <input v-model="double" type="number" value="0">
           </div>
           <div class="date row">
-            <h1>Date of stay:</h1>
-            <input v-model="date" type="date">
+            <h1>Start Date - End Date</h1>
+            <input v-model="startDate" type="date">
+            <input v-model="endDate" type="date">
           </div>
           <div class="price">
-            <h1 class="montserrat">The total price is {{ totalPrice }}</h1>
+            <h1 class="montserrat">The total price is £{{ totalPrice }}</h1>
           </div>
           <div class="submit">
-            <button class="montserrat" v-on:click="updatePrice(guests)" :disabled="userName === ''" >Continue!</button>
+            <button class="montserrat" :disabled="userName === ''" >Continue!</button>
           </div>
           <div class="status">
             <h1 class="montserrat">{{ errorMessage }}</h1>
@@ -154,7 +160,7 @@
 </template>
 
 <script>
-  import { ref } from 'vue'
+  import { ref , watch } from 'vue'
   
   export default {
     name: "Booking",
@@ -166,19 +172,32 @@
       const guests = ref(0);
       const single = ref(0);
       const double = ref(0);
-      const date = ref("")
-      const errorMessage = ref("")
+      const startDate = ref("");
+      const endDate = ref("");
+      const errorMessage = ref("");
       
-      const updatePrice = (newTotal) => {
-        if (guests.value > 0 && ((single.value > 0) || (double.value > 0)) && date.value != "") {
-          emit("updatePrice", newTotal)
-        } else {
-          errorMessage.value = "Missing Inputs!";
-        };
-        
-        
-      }
+      watch([guests, single, double, startDate, endDate], () => {
+        if (guests.value > 0 && ((single.value > 0) || (double.value > 0)) && startDate.value != "" && endDate.value != "") {
+          var newTotal = ((guests.value * 25) + (single.value*25) + (double.value*50));
 
-      return { updatePrice , guests , single , double , date , errorMessage};
-  }};
+          const dateStart = new Date(startDate.value);
+          const dateEnd = new Date(endDate.value);
+
+          const date1 = new Date(dateStart);
+          const date2 = new Date(dateEnd);
+          const diffTime = Math.abs(date2 - date1);
+          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+          console.log(diffDays);
+
+          newTotal = newTotal * diffDays;
+
+          if (newTotal != 0) {
+            emit("updatePrice", newTotal)
+          } else {
+            emit("updatePrice", "N/A");
+          }
+      }})
+
+      return { guests , single , double , startDate , endDate , errorMessage};
+  }}
 </script>
