@@ -10,5 +10,7 @@ if __name__ == "__main__":
 
   ## Create the tables IF THEY DONT ALREADY EXIST ##
   cursor.execute(f"CREATE TABLE IF NOT EXISTS {locations.login} (Account_ID INTEGER PRIMARY KEY AUTOINCREMENT, Username UNIQUE, Password)")
+  cursor.execute(f"CREATE TABLE IF NOT EXISTS {locations.bookings} (Booking_ID INTEGER PRIMARY KEY, Account_ID INTEGER REFERENCES Accounts(Account_ID), Start_date TEXT, End_date TEXT)")
+  #cursor.execute(f"CREATE TABLE IF NOT EXISTS {locations.hotel_booking} (Booking_ID INTEGER PRIMARY KEY, Username, start_date, end_date, room_number INTEGER)")#
 
   print("Connection Established!")

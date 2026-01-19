@@ -28,8 +28,8 @@
       align-items: center;
       
       .box {
-        height: 100vh;
         width: 80vw;
+        height: 100vh;
 
         display: flex;
         justify-content: center;
@@ -51,8 +51,6 @@
         }
 
         .helloStatus {
-          height: 25vh;
-
           display: flex;
           flex-direction: column;
 
@@ -60,11 +58,11 @@
         }
 
         .selections {
-          height: 55vh;
-
           display: flex;
           flex-direction: column;
           justify-content: space-evenly;
+
+          gap: 5vh;
 
           .row {
             display: flex;
@@ -78,6 +76,14 @@
             align-items: center;
 
             color: var(--green-text);
+          }
+
+          .submit {
+            button {
+              width: 20vw;
+              height: 3vw;
+              font-size: 1rem;
+            }
           }
 
           .guests , .double , .single , .date {
@@ -120,13 +126,15 @@
   <body>
     <div class="content">
       <div class="box">
-        <div class="helloStatus">
-          <h1 class="hotelSign" style="color: var(--green-text); text-decoration: underline;">Hotel Bookings!</h1>
-          <h1 class="welcomeUser" v-if="userName" style="color: var(--green-text);">Welcome {{ userName }}!</h1>
-          <h1 class="welcomeUser" v-else style="color: var(--red);">You are not logged in!</h1>
-        </div>
+        
 
         <div class="selections">
+          <div class="helloStatus">
+            <h1 class="hotelSign" style="color: var(--green-text); text-decoration: underline;">Hotel Bookings!</h1>
+            <h1 class="welcomeUser" v-if="userName" style="color: var(--green-text);">Welcome {{ userName }}!</h1>
+            <h1 class="welcomeUser" v-else style="color: var(--red);">You are not logged in!</h1>
+          </div>
+          
           <div class="guests row">
             <h1>Guests:</h1>
             <input type="number" id="guests" value="0" v-model="guests">
@@ -148,7 +156,7 @@
             <h1 class="montserrat">The total price is £{{ totalPrice }}</h1>
           </div>
           <div class="submit">
-            <button class="montserrat" :disabled="userName === ''" >Continue!</button>
+            <button class="montserrat" :disabled="buttonDisabled || userName === ''" >Continue!</button>
           </div>
           <div class="status">
             <h1 class="montserrat">{{ errorMessage }}</h1>
@@ -175,29 +183,46 @@
       const startDate = ref("");
       const endDate = ref("");
       const errorMessage = ref("");
-      
+
+      const buttonDisabled = ref(true);
+
       watch([guests, single, double, startDate, endDate], () => {
+        var slots_in_use = 0;
+        slots_in_use = (1 * single.value) + (2 * double.value);
         if (guests.value > 0 && ((single.value > 0) || (double.value > 0)) && startDate.value != "" && endDate.value != "") {
-          var newTotal = ((guests.value * 25) + (single.value*25) + (double.value*50));
-
-          const dateStart = new Date(startDate.value);
-          const dateEnd = new Date(endDate.value);
-
-          const date1 = new Date(dateStart);
-          const date2 = new Date(dateEnd);
-          const diffTime = Math.abs(date2 - date1);
-          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
-          console.log(diffDays);
-
-          newTotal = newTotal * diffDays;
-
-          if (newTotal != 0) {
-            emit("updatePrice", newTotal)
+          if (guests.value > slots_in_use) {
+            errorMessage.value = "You don't have enough beds to fit everyone!";
+            buttonDisabled.value = true;
+            emit("updatePrice", NaN);
           } else {
-            emit("updatePrice", "N/A");
-          }
-      }})
+            console.log(guests.value, slots_in_use)
+            errorMessage.value = "";
+            var newTotal = ((guests.value * 25) + (single.value*25) + (double.value*50));
 
-      return { guests , single , double , startDate , endDate , errorMessage};
+            const dateStart = new Date(startDate.value);
+            const dateEnd = new Date(endDate.value);
+
+            const date1 = new Date(dateStart);
+            const date2 = new Date(dateEnd);
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+
+            newTotal = newTotal * diffDays;
+
+            if (newTotal != 0) {
+              emit("updatePrice", newTotal)
+              buttonDisabled.value = false;
+            } else {
+              emit("updatePrice", "N/A");
+              buttonDisabled.value = true;
+            }
+          }
+      } else {
+        emit("updatePrice", NaN);
+        buttonDisabled.value = true;
+      }
+    })
+
+      return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled};
   }}
 </script>
