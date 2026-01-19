@@ -47,5 +47,14 @@ def Login():
     "Color":color})
   ##
 
+@app.route("/booking", methods=['POST'])
+def Booking():
+  data = request.get_json()
+
+  username = data,get("user")  ## Username of user
+  start = data.get("start")  ## Start Date
+  end = data.get("end")  ## End Date 
+  booking_type = data.get("type")  ## Hotel or Zoo
+
 if __name__ == "__main__":
   app.run(port=5001, debug=True)

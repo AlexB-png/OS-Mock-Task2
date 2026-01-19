@@ -223,6 +223,14 @@
       }
     })
 
-      return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled};
-  }}
+      
+    async function ButtonPress() {
+      let username = userName;
+      let start = startDate.value
+    }
+
+
+      return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled , ButtonPress};
+  }
+  }
 </script>
