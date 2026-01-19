@@ -12,6 +12,7 @@ def MakeBooking(username, start, end, booking):
 
   ## If there is somehow no account id then return to prevent NonSubscriptable error 
   if not account_id:
+    print("No ID")
     return
   ##
 

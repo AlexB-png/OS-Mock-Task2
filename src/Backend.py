@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from components.PythonFunctions.LoginPageFunctions import CreateLogin , LoginCheck
-#from components.PythonFunctions.BookingFunctions import MakeBooking
+from components.PythonFunctions.BookingFunctions import MakeBooking
 
 app = Flask(__name__)
 CORS(app)
@@ -51,10 +51,14 @@ def Login():
 def Booking():
   data = request.get_json()
 
-  username = data,get("user")  ## Username of user
+  username = data.get("user")  ## Username of user
   start = data.get("start")  ## Start Date
   end = data.get("end")  ## End Date 
   booking_type = data.get("type")  ## Hotel or Zoo
+
+  MakeBooking(username, start, end, booking_type)
+
+  return "This has to be here to stop a CORS error"
 
 if __name__ == "__main__":
   app.run(port=5001, debug=True)
