@@ -1,0 +1,6 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  scrollbar-gutter: stable;
+  font-size: 1vw
+}

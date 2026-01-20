@@ -1,7 +1,7 @@
-import LoginPage from './components/VueFunctions/LoginPage.vue'
+import LoginPage from './components/VueFunctions/LoginPage/LoginPage.vue'
 import { createWebHistory, createRouter } from 'vue-router'
-import Homepage from './components/VueFunctions/Homepage.vue'
-import Booking from './components/VueFunctions/HotelBooking.vue'
+import Homepage from './components/VueFunctions/HomePage/HomePage.vue'
+import Booking from './components/VueFunctions/HotelBooking/HotelBooking.vue'
 
 const routes = [
   { path: '/login', component: LoginPage },

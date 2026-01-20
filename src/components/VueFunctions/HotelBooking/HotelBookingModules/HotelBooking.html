@@ -1,0 +1,42 @@
+<body>
+  <div class="content">
+    <div class="box">
+      
+
+      <div class="selections">
+        <div class="helloStatus">
+          <h1 class="hotelSign" style="color: var(--green-text); text-decoration: underline;">Hotel Bookings!</h1>
+          <h1 class="welcomeUser" v-if="userName" style="color: var(--green-text);">Welcome {{ userName }}!</h1>
+          <h1 class="welcomeUser" v-else style="color: var(--red);">You are not logged in!</h1>
+        </div>
+        
+        <div class="guests row">
+          <h1>Guests:</h1>
+          <input type="number" id="guests" value="0" v-model="guests">
+        </div>
+        <div class="single row">
+          <h1>Single Beds:</h1>
+          <input v-model="single" type="number" value="0">
+        </div>
+        <div class="double row">
+          <h1>Double Beds:</h1>
+          <input v-model="double" type="number" value="0">
+        </div>
+        <div class="date row">
+          <h1>Start Date - End Date</h1>
+          <input v-model="startDate" type="date">
+          <input v-model="endDate" type="date">
+        </div>
+        <div class="price">
+          <h1 class="montserrat">The total price is £{{ totalPrice }}</h1>
+        </div>
+        <div class="submit">
+          <button class="montserrat" :disabled="buttonDisabled || userName === ''" v-on:click="ButtonPress" >Continue!</button>
+        </div>
+        <div class="status">
+          <h1 class="montserrat">{{ errorMessage }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -52,7 +52,7 @@
 <script>
   import { ref } from 'vue';
   import { RouterLink } from 'vue-router';
-  import LoginPage from './components/VueFunctions/LoginPage.vue';
+  import LoginPage from './components/VueFunctions/LoginPage/LoginPage.vue';
 
   export default {
     components: {

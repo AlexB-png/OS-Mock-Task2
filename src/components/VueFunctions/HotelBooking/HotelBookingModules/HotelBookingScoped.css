@@ -1,0 +1,107 @@
+body {
+  height: 120vh;
+  background-color: var(--green);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .content {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .box {
+      width: 80vw;
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex-direction: column;
+      
+      background-color: var(--green-light);
+      border-radius: 20px;
+
+      .welcomeUser {
+        font-size: 2rem;
+        padding-top: 4vh;
+      }
+
+      .hotelSign {
+        font-size: 3rem;
+        padding-top: 2vh;
+      }
+
+      .helloStatus {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+      }
+
+      .selections {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        gap: 5vh;
+
+        .row {
+          display: flex;
+          flex-direction: row;
+          gap: 2.5vw;
+        }
+
+        .submit , .status , .price{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          color: var(--green-text);
+        }
+
+        .submit {
+          button {
+            width: 20vw;
+            height: 3vw;
+            font-size: 1rem;
+          }
+        }
+
+        .guests , .double , .single , .date {
+          h1 {
+            width: 20vw;
+            font-size: 2rem;
+
+            color: var(--green-text);
+          }
+
+          input {
+            width: 38.5vw;
+            height: 3rem;
+            font-size: 2rem;
+
+            border-radius: 10px;
+
+            font-family: "montserrat";
+            font-weight: 500;
+          }
+        }
+        .date {
+          input {
+            width: 18vw;
+          }
+        }
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      
+    }
+  }
+}

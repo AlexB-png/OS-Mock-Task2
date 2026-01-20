@@ -1,0 +1,177 @@
+main {
+  background-image: none;
+}
+
+  .content {
+    background-color: rgba(265, 247, 239);
+    
+    padding-top: 10vh;
+    
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+
+    
+
+    align-items: center;
+    justify-content: center;
+
+    .row1, .row2, .row3 {
+      display: flex;
+      flex-direction: row;
+      gap: 3vw;
+
+      @media (max-width: 1024px) {
+        flex-direction: column;
+      }
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .hotel, .zoo {
+      height: clamp(0px,80vw,600px);
+      width: 35vw;
+      background-color: #A8BBA3;
+
+      color: rgb(91, 108, 62);
+      border-radius: 20px;
+
+      backdrop-filter: blur(4px);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex-direction: column;
+
+      @media (max-width: 1024px) {
+        width: 60vw;
+      }
+    }
+
+    .hotelImg {
+      width: 30vw;
+      border-radius: 10px;
+
+      @media (max-width: 1024px) {
+        width: 40vw;
+      }
+    }
+
+    .hotelText, .zooText {
+      padding-left: 2vw;
+      padding-right: 2vw;
+      text-align: center;
+
+      font-size: 1.5rem;
+
+      @media (max-width: 1024px) {
+        font-size: 3rem;
+      }
+    }
+
+    .hotelLink {
+      padding-bottom: 2.5vh;
+      font-size: 2rem;
+    }
+
+    .zooImage {
+      width: 25vw;
+      border-radius: 10px;
+
+      @media (max-width: 1024px) {
+        width: 35vw;
+      }
+    }
+
+    .zooTextDiv {
+      padding-bottom: 4vh;
+    }
+
+    .hugeGiraffeImage {
+      width: 100%;
+      padding-top: 10vh;
+    }
+
+    .hotelEvent, .zooEvent {
+      height: clamp(0px,80vw,600px);;
+      width: 35vw;
+      background-color: #B87C4C;
+      
+      border-radius: 20px;
+
+      backdrop-filter: blur(4px);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex-direction: column;
+
+      @media (max-width: 1024px) {
+        width: 60vw;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        color: rgb(154, 74, 16);
+
+        @media (max-width: 1024px) {
+          font-size: 2.5rem;
+        }
+      }
+
+      h1 {
+        color: rgb(124, 74, 16);
+        font-size: 3rem;
+
+        @media (max-width: 1024px) {
+          font-size: 5.5rem;
+        }
+      }
+    }
+
+    .row3 {
+      background-color: #A8BBA3;
+      width: 73vw;
+      height: clamp(0px,60vw,600px);
+      border-radius: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      text-align: center;
+      
+
+      h1 {
+        color: #437057;
+
+        @media (max-width: 1024px) {
+          font-size: 5.5rem;
+        }
+      }
+
+      p {
+        font-size: 2rem;
+
+        color: rgb(91, 108, 62);
+
+        @media (max-width: 1024px) {
+          font-size: 3rem;
+        }
+      }
+
+      .row3Text {
+        padding-left: 2vw;
+        padding-right: 2vw;
+      }
+    }
+    
+}
