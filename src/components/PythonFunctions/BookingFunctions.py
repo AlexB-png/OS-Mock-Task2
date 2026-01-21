@@ -40,8 +40,9 @@ def MakeBooking(username, start, end, booking):
   ##
 
   for RoomNum in range(1, 51):
+    locationFound = True
     ## If room is available change this to True
-    locationFound = False
+    
     ##
     
     ## Store data for the room Number here
@@ -57,9 +58,28 @@ def MakeBooking(username, start, end, booking):
 
     ## IF Booking start__list and end_list has data in it ##
     if (start_list) and (end_list):
-      for start_date_list in start_list:
-        for end_date_list in end_list:
-          print(start_date_list, end_date_list)
-    else:
+      for i in range(len(start_list)):
+        print(len(start_list))
+        print(i)
+        print(start_list[i], end_list[i])
+
+        equal = FormatDateTime(start_list[i]) == start_date or FormatDateTime(end_list[i]) == end_date
+        start_between = FormatDateTime(start_list[i]) <= start_date <= FormatDateTime(end_list[i])
+        end_between = FormatDateTime(start_list[i]) <= end_date <= FormatDateTime(end_list[i])
+        overlap = (start_date <= FormatDateTime(start_list[i])) and (end_date >= FormatDateTime(end_list[i]))
+
+        if (overlap or end_between or start_between or equal):
+          locationFound = False
+          break
+
+      if locationFound:
+        AddData(data, RoomNum, start_date, end_date, Account_ID)
+        return
+
+    elif locationFound:
       AddData(data, RoomNum, start_date, end_date, Account_ID)
-      break
+      return
+
+def FormatDateTime(input):
+  format = '%Y-%m-%d'
+  return datetime.datetime.strptime(input, format)
