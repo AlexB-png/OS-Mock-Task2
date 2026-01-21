@@ -3,67 +3,63 @@ import sqlite3 as sql
 import json
 import datetime
 
+def AddData(Data, RoomNumber, Start_Date, End_Date, ID):
+  NewData = Data
+
+  ## Start Date
+  Old_Start_Date = NewData[str(RoomNumber)]["start_date"]
+  Old_Start_Date.append(Start_Date.date().isoformat())
+  NewData[str(RoomNumber)]["start_date"] = Old_Start_Date
+  ##
+
+  ## End Date
+  Old_End_Date = NewData[str(RoomNumber)]["end_date"]
+  Old_End_Date.append(End_Date.date().isoformat())
+  NewData[str(RoomNumber)]["end_date"] = Old_End_Date
+  ##
+  
+  ## ID
+  Old_ID = NewData[str(RoomNumber)]["user_id"]
+  Old_ID.append(ID[0])
+  NewData[str(RoomNumber)]["user_id"] = Old_ID
+  ##
+
+  with open('src/HotelBookings.json', 'w') as file:
+    json.dump(NewData, file, indent=4)
+
 def MakeBooking(username, start, end, booking):
   ## Convert string to datetime for comparing
   format = '%Y-%m-%d'
   start_date = datetime.datetime.strptime(start, format)
   end_date = datetime.datetime.strptime(end, format)
   ##
-
-  ## Test
-  test_start = datetime.datetime.strptime("2026-01-01", format)
-  test_end = datetime.datetime.strptime("2026-01-02", format)
-  ##
-
-  if test_start <= start_date <= test_end or test_start <= end_date <= test_end or (start_date <= test_start and end_date >= test_end):
-    print("Within dates!")
-
-  #print(start_date, end_date)
   
-  ## Make a connection to the database ##
-  connection, cursor , locations = connect()
-  ##
-  
-  ## Get the account id from Username
-  account_id = cursor.execute("SELECT Account_ID FROM Accounts where Username = ?", (username,)).fetchone()
-  ##
-
-  ## If there is somehow no account id then return to prevent NonSubscriptable error 
-  if not account_id:
-    print("No ID")
-    return
-  ##
-
+  ## Data is the room booking database
   with open("src/HotelBookings.json", 'r') as file:
     data = json.load(file)
-
-  for RoomNum in range(1,51):
-    room = data[str(RoomNum)]
-    
-    start_date = "START"
-    end_date = "END"
-    user_ID = "TEST"
-
-    start_list = room["start_date"]
-    end_list = room["end_date"]
-
-    if start_list and end_list:
-      for start in start_list:
-        for end in end_list:
-          print(start, end)
-    else:
-      print(room, start_list, end_list)
-
-    #print(RoomNum)
-    #print("Start Date:", start_list)
-    #print("End Date", end_list)
-
-    if not start_list and not end_list:
-      break
-
-  ## Insert Account_ID , start , end and booking type into bookings database
-  #cursor.execute("INSERT INTO bookings (Account_ID, Start_date, End_date, Type_Of_Bookings) VALUES (?,?,?,?)", (account_id[0], start, end, booking))
   ##
 
-  connection.commit()
-  connection.close()
+  for RoomNum in range(1, 51):
+    ## If room is available change this to True
+    locationFound = False
+    ##
+    
+    ## Store data for the room Number here
+    RoomData = data[str(RoomNum)]
+    start_list = RoomData['start_date']
+    end_list = RoomData['end_date']
+    ##
+
+    ## Get User ID 
+    connection, cursor , locations = connect()
+    Account_ID = cursor.execute(f"SELECT Account_ID FROM {locations.login} WHERE Username = ?", (username,)).fetchone()
+    ##
+
+    ## IF Booking start__list and end_list has data in it ##
+    if (start_list) and (end_list):
+      for start_date_list in start_list:
+        for end_date_list in end_list:
+          print(start_date_list, end_date_list)
+    else:
+      AddData(data, RoomNum, start_date, end_date, Account_ID)
+      break
