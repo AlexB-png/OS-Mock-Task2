@@ -1,6 +1,6 @@
 main {
   background-color: #A8BBA3;
-  height: 100vh;
+  height: 150vh;
 
   display: flex;
   justify-content: center;
@@ -11,12 +11,14 @@ main {
   background-color: var(--green-light);
 
   width: 80vw;
-  height: 40vw;
+  height: 60vw;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  gap: 2vw;
 
   border-radius: 10px;
 
@@ -39,14 +41,50 @@ main {
 
       border-radius: 10px;
 
+      padding: 1vw;
+
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
 
       h1 {
         color: var(--green-text);
         text-decoration: underline;
       }
+
+      h2 {
+        color: var(--green-text);
+        font-size: 1.5rem;
+      }
+
+      button {
+        width: 10vw;
+        height: 2.5vw;
+      }
+    }
+  }
+
+  .prices {
+    width: 70vw;
+    height: 20vw;
+
+    background-color: rgb(189, 228, 179);
+
+    border-radius: 1vw;
+
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+
+    .priceDiv {
+      color : var(--green-text);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex-direction: column;
     }
   }
 }
