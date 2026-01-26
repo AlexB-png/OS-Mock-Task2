@@ -1,0 +1,52 @@
+main {
+  background-color: #A8BBA3;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  background-color: var(--green-light);
+
+  width: 80vw;
+  height: 40vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  border-radius: 10px;
+
+  .zooTitle {
+    color: var(--green-text);
+    text-decoration: underline;
+    font-size: 2rem;
+  }
+
+  .options {
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    .option {
+      background-color: rgb(189, 228, 179);
+      height: 20vw;
+      width: 20vw;
+
+      border-radius: 10px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      h1 {
+        color: var(--green-text);
+        text-decoration: underline;
+      }
+    }
+  }
+}

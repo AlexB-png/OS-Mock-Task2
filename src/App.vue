@@ -27,6 +27,8 @@
       justify-content: right;
       gap: 5vw;
 
+      padding-right: 5vw;
+
       height: 5vh;
     }
   }
@@ -40,8 +42,7 @@
         <RouterLink to="/login">Login!</RouterLink>
         <RouterLink to="/">Homepage!</RouterLink>
         <RouterLink to="/hotelbooking">Hotel Booking!</RouterLink>
-        <h1>Zoo Bookings!</h1>
-
+        <RouterLink to="/zoobooking">Zoo Booking!</RouterLink>
       </div>
     </div>
 
