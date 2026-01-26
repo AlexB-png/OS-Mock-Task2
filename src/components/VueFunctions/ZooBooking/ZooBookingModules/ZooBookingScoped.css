@@ -25,7 +25,7 @@ main {
   .zooTitle {
     color: var(--green-text);
     text-decoration: underline;
-    font-size: 2rem;
+    font-size: 4rem;
   }
 
   .options {
@@ -61,6 +61,8 @@ main {
       button {
         width: 10vw;
         height: 2.5vw;
+
+        font-size: 1rem;
       }
     }
   }

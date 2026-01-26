@@ -37,8 +37,12 @@ export default {
           // Clear error message
           errorMessage.value = "";
           //
+          
+          // Get the total cost of the room
           var newTotal = ((guests.value * 25) + (single.value*25) + (double.value*50));
+          //
 
+          // Calculate Days Between Dates Selected
           const dateStart = new Date(startDate.value);
           const dateEnd = new Date(endDate.value);
 
@@ -46,9 +50,12 @@ export default {
           const date2 = new Date(dateEnd);
 
           const diffTime = Math.abs(date2 - date1);
-          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+          //
 
+          // Multiply day cost by amount of days
           newTotal = newTotal * diffDays;
+          //
 
           if (date1 > date2) {
             buttonDisabled.value = true;
