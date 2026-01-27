@@ -50,7 +50,9 @@
       @updatePrice="updatePrice"
       @updateBookingType = "updateBookingType"
       :user-name="username"
-      :total-price="totalPrice"></router-view>
+      :total-price="totalPrice"
+      :booking-type="bookingType"
+    ></router-view>
   </main>
 </template>
 
@@ -89,7 +91,7 @@
         console.log(bookingType.value)
       }
 
-      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType};
+      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType};
     }
   }
 </script>
