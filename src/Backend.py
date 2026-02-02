@@ -47,6 +47,8 @@ def Login():
     "Color":color})
   ##
 
+
+## This is the hotel booking route
 @app.route("/booking", methods=['POST'])
 def Booking():
   data = request.get_json()
@@ -59,7 +61,18 @@ def Booking():
   MakeBooking(username, start, end, booking_type)
 
   return "This has to be here to stop a CORS error"
+##
 
+## This is the Zoo Booking route
+@app.route("/zoobooking", methods=['POST'])
+def zooBooking():
+  data = request.get_json()
+  print(data)
+
+  return {
+    "status": True
+  }
+##
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])

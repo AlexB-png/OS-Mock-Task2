@@ -34,7 +34,7 @@
           <div class="text">
             <h1>Input Membership Number:</h1>
           </div>
-          <input type="number">
+          <input type="number" v-model="membershipNum">
         </div>
 
         <button v-on:click="button" class="montserrat" :disabled="!(adult && date) | !userName">Click Me!</button>

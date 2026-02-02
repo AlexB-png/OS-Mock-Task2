@@ -40,15 +40,25 @@ export default {
     })
     
     async function button() {
-      let request = await fetch("http://127.0.0.1:5001/test", {
+      let request = await fetch("http://127.0.0.1:5001/zoobooking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
+        body: JSON.stringify({
+          username: props.userName,
+          date: date.value,
+          adult: adult.value,
+          child: child.value,
+          membershipNum: membershipNum.value,
+          bookingtype: props.bookingType
+        })
       })
-      console.log(request)
+      const response = await request.json()
+      
+      console.log(response['status'])
     }
 
-    return {button,adult,child,date,membershipNum,school}
+    return {button, adult, child, date, membershipNum, school}
 }
 }
