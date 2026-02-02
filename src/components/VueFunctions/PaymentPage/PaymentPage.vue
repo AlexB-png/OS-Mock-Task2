@@ -38,6 +38,8 @@
         </div>
 
         <button v-on:click="button" class="montserrat" :disabled="!(adult && date) | !userName">Click Me!</button>
+
+        <h1 class="monstserrat">Total Cost: {{ totalPrice }}</h1>
       
         <h1 v-if="!userName" style="color: var(--red);">You Are Not Logged In!</h1>
       </div>
@@ -74,6 +76,8 @@
         </div>
 
         <button v-on:click="button" :disabled="!(userName && adult && child && date)" class="montserrat">Submit!</button>
+
+        <h1 class="monstserrat">Total Cost: {{ totalPrice }}</h1>
 
         <h1 v-if="!userName" style="color: var(--red);">You Are Not Logged In!</h1>
       </div>
