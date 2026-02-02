@@ -44,6 +44,10 @@
 
     flex-direction: column;
 
+    .welcome {
+      font-size: 4rem;
+    }
+
     h1 {
       font-size: 2rem;
 
@@ -55,6 +59,30 @@
       height: 4vw;
 
       font-size: 2rem;
+    }
+  }
+
+  .education {
+    height: 40vw;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+
+    .title {
+      text-decoration: underline;
+      font-size: 3rem;
+    }
+  
+    h1 {
+      color: var(--green-text);
+      font-size: 2rem;
+    }
+
+    button {
+      width: 20vw;
+      height: 3vw;
     }
   }
 }

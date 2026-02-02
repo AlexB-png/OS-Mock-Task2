@@ -60,5 +60,12 @@ def Booking():
 
   return "This has to be here to stop a CORS error"
 
+
+## This is the test router for making sure that the app will make a correct fetch request
+@app.route("/test", methods=['POST'])
+def Test():
+  return [True]
+##
+
 if __name__ == "__main__":
   app.run(port=5001, debug=True)

@@ -12,11 +12,21 @@ export default {
     const child = ref(0)
     const date = ref("")
     const membershipNum = ref(0)
+
+    // Only used in education booking
+    const school = ref("")
+    //
     
-    const button = () => {
-      console.log(adult.value, child.value, date.value, membershipNum.value)
+    async function button() {
+      let request = await fetch("http://127.0.0.1:5001/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      console.log(request)
     }
 
-    return {button,adult,child,date,membershipNum}
+    return {button,adult,child,date,membershipNum,school}
 }
 }
