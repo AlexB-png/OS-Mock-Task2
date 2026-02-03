@@ -50,7 +50,7 @@ export default {
           date: date.value,
           adult: adult.value,
           child: child.value,
-          membershipNum: membershipNum.value,
+          membershipnum: membershipNum.value,
           bookingtype: props.bookingType
         })
       })

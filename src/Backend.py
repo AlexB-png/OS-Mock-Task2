@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from components.PythonFunctions.LoginPageFunctions import CreateLogin , LoginCheck
 from components.PythonFunctions.BookingFunctions import MakeBooking
+from components.PythonFunctions.ZooBooking import MakeBooking
 
 app = Flask(__name__)
 CORS(app)
@@ -68,6 +69,8 @@ def Booking():
 def zooBooking():
   data = request.get_json()
   print(data)
+
+  MakeBooking(data)
 
   return {
     "status": True
