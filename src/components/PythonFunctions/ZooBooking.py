@@ -28,12 +28,14 @@ def DatabaseInteraction(UserClass):
 
   if CurrentDate >= FormatDateTime(UserClass.Date):  ## If input date is before the current date ##
     return "The Date Is Invalid!"
+  elif not UserClass.MembershipNum and UserClass.BookingType == 'member':
+    return "The MemberShip Number is empty!"
   else: 
     Account_ID = cursor.execute("SELECT Account_ID From Accounts WHERE Username = ?", (UserClass.Username,)).fetchone()[0]
     cursor.execute(f"INSERT INTO {Databases.bookings} (Type_Of_Bookings, Account_ID, Date, Adults, Child, Membership_Number, Username) VALUES (?, ?, ?, ?, ?, ?, ?)", (UserClass.BookingType, Account_ID, UserClass.Date, UserClass.Adult, UserClass.Child, UserClass.MembershipNum, UserClass.Username))
     connection.commit()
     connection.close()
-    return "Yeah that works"
+    return "Success!"
 
 
 def GetParams(data):

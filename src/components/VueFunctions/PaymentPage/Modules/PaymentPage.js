@@ -13,6 +13,7 @@ export default {
     const child = ref(0)
     const date = ref("")
     const membershipNum = ref(0)
+    const statusText = ref("Status Text Here")
 
     // Only used in education booking
     const school = ref("");
@@ -56,9 +57,9 @@ export default {
       })
       const response = await request.json()
       
-      console.log(response['status'])
+      statusText.value = response["status"]
     }
 
-    return {button, adult, child, date, membershipNum, school}
+    return {button, adult, child, date, membershipNum, school, statusText}
 }
 }
