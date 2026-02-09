@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from components.PythonFunctions.LoginPageFunctions import CreateLogin , LoginCheck
-from components.PythonFunctions.BookingFunctions import MakeBooking
 from components.PythonFunctions.ZooBooking import MakeZooBooking
+from components.PythonFunctions.HotelBooking import CreateHotelBooking
 
 app = Flask(__name__)
 CORS(app)
@@ -48,22 +48,6 @@ def Login():
     "Color":color})
   ##
 
-
-## This is the hotel booking route
-@app.route("/booking", methods=['POST'])
-def Booking():
-  data = request.get_json()
-
-  username = data.get("user")  ## Username of user
-  start = data.get("start")  ## Start Date
-  end = data.get("end")  ## End Date 
-  booking_type = data.get("type")  ## Hotel or Zoo
-
-  MakeBooking(username, start, end, booking_type)
-
-  return "This has to be here to stop a CORS error"
-##
-
 ## This is the Zoo Booking route
 @app.route("/zoobooking", methods=['POST'])
 def zooBooking():
@@ -75,6 +59,16 @@ def zooBooking():
     "status": response
   }
 ##
+
+@app.route("/hotelbooking", methods=['POST'])
+def HotelBooking():
+  data = request.get_json()
+
+  print(data)
+
+  return {
+    "Status" : "Success"
+  }
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])

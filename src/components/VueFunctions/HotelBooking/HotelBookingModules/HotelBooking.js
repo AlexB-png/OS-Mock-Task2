@@ -83,7 +83,7 @@ export default {
     let end = endDate.value;
     let type = "Hotel";
 
-    let request = await fetch("http://127.0.0.1:5001/booking", {
+    let request = await fetch("http://127.0.0.1:5001/hotelbooking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
