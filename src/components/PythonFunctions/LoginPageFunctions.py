@@ -48,7 +48,7 @@ def CreateLogin(username, password):
   
   ## Try creating the login // If exists fail // else create the login ##
   try:
-    status = cursor.execute(f"INSERT INTO {locations.login} (Username, Password) VALUES (?,?)",(username,hashed))
+    status = cursor.execute(f"INSERT INTO {locations.login} (Username, Password, Admin) VALUES (?,?,?)",(username,hashed,False))
     
     connection.commit()
     connection.close()

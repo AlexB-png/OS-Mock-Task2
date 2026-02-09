@@ -1,4 +1,4 @@
-<style>
+<style lang="scss">
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
   .montserrat {
@@ -6,6 +6,21 @@
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
+  }
+
+  .overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgb(255, 160, 160);
+    z-index: 3;
   }
   
   .navBar {
@@ -16,7 +31,7 @@
     top: 0px;
     left: 0px;
 
-    z-index: 9999;
+    z-index: 2;
 
     background-color: rgba(235, 217, 209,0.5);
     backdrop-filter: blur(4px);
@@ -36,12 +51,24 @@
         height: 2vw;
         border-radius: 100px;
       }
+
+      button {
+        width: 2vw;
+        height: 2vw;
+        border-radius: 2vw;
+        background-image: url('./assets/pfp.png');
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
     }
   }
 </style>
 
 <template>
   <main>
+    <div class="overlay" id="overlay"><button v-on:click="button"></button></div>
     <div class="navBar montserrat">
       <div class="navBarText">
         <h1 v-bind:style="{color:color}" class="montserrat" style="font-size: 1rem;">{{ usernameTopBar }}</h1>
@@ -49,7 +76,7 @@
         <RouterLink to="/">Homepage!</RouterLink>
         <RouterLink to="/hotelbooking">Hotel Booking!</RouterLink>
         <RouterLink to="/zoobooking">Zoo Booking!</RouterLink>
-
+        <button v-on:click="button"></button>
       </div>
     </div>
 
@@ -98,7 +125,16 @@
         console.log(bookingType.value)
       }
 
-      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType};
+      function button() {
+        var x = document.getElementById("overlay");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType, button};
     }
   }
 </script>

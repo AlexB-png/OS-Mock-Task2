@@ -11,7 +11,9 @@ if __name__ == "__main__":
   ## Create the tables IF THEY DONT ALREADY EXIST ##
   cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.login}
                   (Account_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                  Username UNIQUE, Password)""")
+                  Username UNIQUE,
+                  Password STRING,
+                  Admin BOOLEAN)""")
   
   cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.bookings}
                   (Booking_ID INTEGER PRIMARY KEY,
