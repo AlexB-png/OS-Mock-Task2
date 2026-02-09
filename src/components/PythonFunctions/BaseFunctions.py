@@ -23,3 +23,6 @@ class Colors:
   red = "rgb(255,51,0)"
   green = "#626F47"
   lime = "rgb(153,255,153)"
+
+class HotelSettings:
+  max_rooms = 50
