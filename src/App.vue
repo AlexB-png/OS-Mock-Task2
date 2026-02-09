@@ -30,6 +30,12 @@
       padding-right: 5vw;
 
       height: 5vh;
+
+      select {
+        width: 2vw;
+        height: 2vw;
+        border-radius: 100px;
+      }
     }
   }
 </style>
@@ -43,6 +49,7 @@
         <RouterLink to="/">Homepage!</RouterLink>
         <RouterLink to="/hotelbooking">Hotel Booking!</RouterLink>
         <RouterLink to="/zoobooking">Zoo Booking!</RouterLink>
+
       </div>
     </div>
 

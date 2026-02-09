@@ -26,7 +26,7 @@ export default {
       //
       
       // Just check that everything has had an input EXCEPT only one of double or single has to be done
-      if (guests.value > 0 && ((single.value > 0) || (double.value > 0)) && startDate.value != "" && endDate.value != "") {
+      if (guests.value > 0 && ((single.value >= 0) && (double.value >= 0)) && startDate.value != "" && endDate.value != "") {
         // if there are more guests that amount of "Bed Points"
         if (guests.value > slots_in_use) {
           errorMessage.value = "You don't have enough beds to fit everyone!";
@@ -81,7 +81,10 @@ export default {
     let username = props.userName;
     let start = startDate.value;
     let end = endDate.value;
-    let type = "Hotel";
+
+    let guestCount = guests.value;
+    let singleBed = single.value;
+    let doubleBed = double.value;
 
     let request = await fetch("http://127.0.0.1:5001/hotelbooking", {
       method: "POST",
@@ -92,9 +95,13 @@ export default {
         user: username,
         start: start,
         end: end,
-        type: type
+        guests: guestCount,
+        singles: singleBed,
+        doubles: doubleBed,
       })
     })
+
+    errorMessage.value = (await request.json())["Status"]
   }
 
     return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled , ButtonPress};

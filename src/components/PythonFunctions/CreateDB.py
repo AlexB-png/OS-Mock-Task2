@@ -28,6 +28,9 @@ if __name__ == "__main__":
                   Start_Date STRING,
                   End_Date STRING,
                   Room_Number INTEGER,
+                  Guests INTEGER,
+                  Singles INTEGER,
+                  Doubles INTEGER,
                   Account_ID INTEGER REFERENCES Accounts(Account_ID))""")
 
   print("Connection Established!")

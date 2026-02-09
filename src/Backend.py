@@ -64,10 +64,18 @@ def zooBooking():
 def HotelBooking():
   data = request.get_json()
 
-  print(data)
+  start = data["start"]
+  end = data["end"]
+  username = data["user"]
+
+  Guests = data["guests"]
+  Singles = data["singles"]
+  Doubles = data["doubles"]
+
+  response = CreateHotelBooking(start, end, username, Guests, Singles, Doubles)
 
   return {
-    "Status" : "Success"
+    "Status" : response
   }
 
 ## This is the test router for making sure that the app will make a correct fetch request

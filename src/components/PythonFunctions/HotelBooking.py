@@ -4,12 +4,12 @@ from .BaseFunctions import Databases, HotelSettings
 
 ## Convert String To DateTime ##
 def FormatDateTime(input):
-  format = '%d-%m-%Y'
+  format = '%Y-%m-%d'
   return datetime.datetime.strptime(input, format)
 ##
 
 ## Make the booking into hotel (parameters Starting Date and the End date)
-def CreateHotelBooking(Start_Date : str, End_Date : str, Account_ID : str):
+def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Guests : int, Singles : int, Doubles : int):
   # src/DataBase.db 
   database = Databases.db_path
 
@@ -20,6 +20,9 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_ID : str):
   current_room = 1
   found = False
 
+  Account_ID = cursor.execute(f"SELECT Account_ID FROM {Databases.login} WHERE Username = ?", (Account_Name,)).fetchall()[0][0]
+  print(Account_ID)
+
   while current_room <= rooms and not found:
     # Get data for a specific room number
     room_num = cursor.execute("SELECT * from Hotel_Bookings WHERE Room_Number = ?",(current_room,)).fetchall()
@@ -27,9 +30,10 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_ID : str):
     # If the room number is empty then break the loop and add booking to database
     if not room_num:
       print("No Bookings Made Yet!")
-      cursor.execute("INSERT INTO Hotel_Bookings (Start_Date, End_Date, Room_Number) VALUES (?,?,?)",(Start_Date, End_Date, current_room))
+      cursor.execute("INSERT INTO Hotel_Bookings (Start_Date, End_Date, Room_Number, Account_ID, Guests, Singles, Doubles) VALUES (?,?,?,?,?,?,?)",(Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles))
       found = True
-      break
+      connection.commit()
+      return "Successfully Made Booking"
 
     # Iterate over the data for the room number to check if there is a booking already
     for booking in room_num:
@@ -59,16 +63,22 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_ID : str):
       # debug
       print(invalid)
 
-      # If the dates are invalid then dont repeat loop for this room number
+      # If the dates are invalid then dont repeat loop for this room number and set found to false
       if invalid:
+        found = False
         break
       else:
-        print("Room Found", current_room)
-        cursor.execute("INSERT INTO Hotel_Bookings (Start_Date, End_Date, Room_Number) VALUES (?,?,?)",(Start_Date, End_Date, current_room))
         found = True
+    if found:
+      print("Room Found", current_room)
+      cursor.execute("""INSERT INTO Hotel_Bookings
+                      (Start_Date, End_Date, Room_Number) VALUES (?,?,?)"""
+                      ,(Start_Date, End_Date, current_room))
+      connection.commit()
+      return "Successfully Made Booking"
 
     # Iterate up the room that is being checked
     current_room += 1
-
-  connection.commit()
+  
+  return "No Rooms Available"
 ##
