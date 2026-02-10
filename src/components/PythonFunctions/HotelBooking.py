@@ -21,7 +21,7 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
   found = False
 
   Account_ID = cursor.execute(f"SELECT Account_ID FROM {Databases.login} WHERE Username = ?", (Account_Name,)).fetchall()[0][0]
-  print(Account_ID)
+  # print(Account_ID)
 
   while current_room <= rooms and not found:
     # Get data for a specific room number
@@ -29,7 +29,7 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
     
     # If the room number is empty then break the loop and add booking to database
     if not room_num:
-      print("No Bookings Made Yet!")
+      # print("No Bookings Made Yet!")
       cursor.execute("INSERT INTO Hotel_Bookings (Start_Date, End_Date, Room_Number, Account_ID, Guests, Singles, Doubles) VALUES (?,?,?,?,?,?,?)",(Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles))
       found = True
       connection.commit()
@@ -61,7 +61,7 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
       invalid = Equal or Start_Between or End_Between or Overlap or Reverse_Overlap
 
       # debug
-      print(invalid)
+      # print(invalid)
 
       # If the dates are invalid then dont repeat loop for this room number and set found to false
       if invalid:
@@ -70,10 +70,16 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
       else:
         found = True
     if found:
-      print("Room Found", current_room)
       cursor.execute("""INSERT INTO Hotel_Bookings
-                      (Start_Date, End_Date, Room_Number) VALUES (?,?,?)"""
-                      ,(Start_Date, End_Date, current_room))
+                    (Start_Date,
+                    End_Date,
+                    Room_Number,
+                    Account_ID,
+                    Guests,
+                    Singles,
+                    Doubles)
+                    VALUES (?,?,?,?,?,?,?)""",
+                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles))
       connection.commit()
       return "Successfully Made Booking"
 

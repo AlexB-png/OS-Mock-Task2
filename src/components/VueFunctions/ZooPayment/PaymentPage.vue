@@ -2,7 +2,7 @@
 
 <style src="./Modules/PaymentPage.css"></style>
 
-<template >
+<template>
   <main>
   <div class="content">
     <div v-if="bookingType">

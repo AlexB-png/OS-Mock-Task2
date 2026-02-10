@@ -27,9 +27,50 @@
       width: 30vw;
       height: 30vw;
 
+      border-radius: 10px;
+
       .overlayTopBar {
-        align-items: right;
+        display: flex;
+        justify-content: right;
+        align-items: end;
         width: 100%;
+
+        height: 2vw;
+
+        .hideButton {
+          width: 2vw;
+          height: 2vw;
+
+          border-radius: 10px;
+
+          border: none;
+          cursor:pointer;
+
+          background-color: var(--green-light);
+
+          transition: all 0.1s ease-in-out;
+        }
+
+        .hideButton:hover {
+          background-color: var(--green-hover);
+        }
+      }
+
+      .overlayContentButtons {
+        display: flex;
+        height: 100%;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 1vw;
+
+        button {
+          width: 20vw;
+          height: 4vw;
+        }
       }
     }
   }
@@ -82,7 +123,15 @@
     <div class="overlay" v-bind:style="{display: overlayShown }">
       <div class="overlayContent">
         <div class="overlayTopBar">
-          <button v-on:click="showOverlay">X</button>
+          <button v-on:click="showOverlay" class="hideButton">X</button>
+        </div>
+
+        <div class="overlayContentButtons">
+          <button v-on:click="logOut">Log Out!</button>
+          <button id="bookings" v-on:click="dashBoardButton">See Your Bookings!</button>
+          <button id="cancel" v-on:click="dashBoardButton">Cancel Bookings!</button>
+          <button id="accessibility">Accessibility</button>
+          <button id="settings" v-on:click="dashBoardButton">Settings!</button>
         </div>
       </div>
     </div>
@@ -97,12 +146,14 @@
       </div>
     </div>
 
-    <router-view @updateTopBar="updateTopBar" 
+    <router-view 
+      @updateTopBar="updateTopBar" 
       @updatePrice="updatePrice"
       @updateBookingType = "updateBookingType"
       :user-name="username"
       :total-price="totalPrice"
       :booking-type="bookingType"
+      :dashboard-option="dashBoardOption"
     ></router-view>
   </main>
 </template>
@@ -111,6 +162,7 @@
   import { ref } from 'vue';
   import { RouterLink } from 'vue-router';
   import LoginPage from './components/VueFunctions/LoginPage/LoginPage.vue';
+  import { useRouter } from "vue-router";
 
   export default {
     components: {
@@ -123,6 +175,9 @@
       const totalPrice = ref(0);
       const bookingType = ref("")
 
+      const router = useRouter();
+
+      const dashBoardOption = ref("")
       const overlayShown = ref("none")
 
       // Update the username on the top bar
@@ -132,6 +187,12 @@
         username.value = user;
         color.value = "rgb(0,100,0)"
         console.log(user)
+      }
+
+      const logOut = () => {
+        username.value = ""
+        usernameTopBar.value = "Not Logged In"
+        color.value = "rgb(100,0,0)"
       }
 
       // Emit message from HotelBooking.vue //
@@ -144,7 +205,7 @@
         console.log(bookingType.value)
       }
 
-      const  showOverlay = () => {
+      const showOverlay = () => {
         console.log("Overlay Active")
         if (overlayShown.value == "flex") {
           overlayShown.value = "none";
@@ -154,7 +215,28 @@
         
       }
 
-      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType, showOverlay, overlayShown};
+      const dashBoardButton = () => {
+        console.log(event.srcElement.id);
+        dashBoardOption.value = event.srcElement.id;
+
+        router.push("/")
+        router.push("/dashboard")
+      }
+
+      return { username,
+              usernameTopBar,
+              color,
+              updateTopBar,
+              totalPrice,
+              updatePrice,
+              updateBookingType,
+              bookingType,
+              showOverlay,
+              overlayShown,
+              logOut,
+              dashBoardOption,
+              dashBoardButton
+            };
     }
   }
 </script>
