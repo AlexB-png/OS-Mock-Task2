@@ -14,13 +14,24 @@
     width: 100%;
     height: 100%;
 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background-color: rgb(255, 160, 160);
+    background-color: rgba(0, 0, 0, 0.5);
+    
     z-index: 3;
+
+    .overlayContent {
+      background-color: var(--green);
+      width: 30vw;
+      height: 30vw;
+
+      .overlayTopBar {
+        align-items: right;
+        width: 100%;
+      }
+    }
   }
   
   .navBar {
@@ -68,7 +79,13 @@
 
 <template>
   <main>
-    <div class="overlay" id="overlay"><button v-on:click="button"></button></div>
+    <div class="overlay" v-bind:style="{display: overlayShown }">
+      <div class="overlayContent">
+        <div class="overlayTopBar">
+          <button v-on:click="showOverlay">X</button>
+        </div>
+      </div>
+    </div>
     <div class="navBar montserrat">
       <div class="navBarText">
         <h1 v-bind:style="{color:color}" class="montserrat" style="font-size: 1rem;">{{ usernameTopBar }}</h1>
@@ -76,7 +93,7 @@
         <RouterLink to="/">Homepage!</RouterLink>
         <RouterLink to="/hotelbooking">Hotel Booking!</RouterLink>
         <RouterLink to="/zoobooking">Zoo Booking!</RouterLink>
-        <button v-on:click="button"></button>
+        <button v-on:click="showOverlay"></button>
       </div>
     </div>
 
@@ -106,6 +123,8 @@
       const totalPrice = ref(0);
       const bookingType = ref("")
 
+      const overlayShown = ref("none")
+
       // Update the username on the top bar
       // Emit message from LoginPage.vue //
       const updateTopBar = (user) => {
@@ -125,16 +144,17 @@
         console.log(bookingType.value)
       }
 
-      function button() {
-        var x = document.getElementById("overlay");
-        if (x.style.display === "none") {
-          x.style.display = "block";
+      const  showOverlay = () => {
+        console.log("Overlay Active")
+        if (overlayShown.value == "flex") {
+          overlayShown.value = "none";
         } else {
-          x.style.display = "none";
+          overlayShown.value = "flex";
         }
+        
       }
 
-      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType, button};
+      return { username , usernameTopBar , color , updateTopBar, totalPrice, updatePrice, updateBookingType, bookingType, showOverlay, overlayShown};
     }
   }
 </script>
