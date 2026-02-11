@@ -24,8 +24,18 @@
 
     .overlayContent {
       background-color: var(--green);
-      width: 30vw;
-      height: 30vw;
+      width: 30%;
+      height: 80%;
+
+      @media (max-width: 1024px) {
+        height: 70%;
+        width: 80%;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--red);
+      }
 
       border-radius: 10px;
 
@@ -46,6 +56,8 @@
           border: none;
           cursor:pointer;
 
+          font-size: 1rem;
+
           background-color: var(--green-light);
 
           transition: all 0.1s ease-in-out;
@@ -58,11 +70,11 @@
 
       .overlayContentButtons {
         display: flex;
-        height: 100%;
+        height: 90%;
 
         flex-direction: column;
 
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
 
         gap: 1vw;
@@ -70,6 +82,15 @@
         button {
           width: 20vw;
           height: 4vw;
+
+          font-size: 1rem;
+
+          @media (max-width: 1024px) {
+            width: 40vw;
+            height: 8vw;
+
+            font-size: 2rem;
+          }
         }
       }
     }
@@ -127,11 +148,12 @@
         </div>
 
         <div class="overlayContentButtons">
-          <button v-on:click="logOut">Log Out!</button>
-          <button id="bookings" v-on:click="dashBoardButton">See Your Bookings!</button>
-          <button id="cancel" v-on:click="dashBoardButton">Cancel Bookings!</button>
-          <button id="accessibility">Accessibility</button>
-          <button id="settings" v-on:click="dashBoardButton">Settings!</button>
+          <h1 v-if="! username">You are not logged in!</h1>
+          <button v-on:click="logOut" :disabled="! username">Log Out!</button>
+          <button id="bookings" v-on:click="dashBoardButton" :disabled="! username">See Your Bookings!</button>
+          <button id="cancel" v-on:click="dashBoardButton" :disabled="! username">Cancel Bookings!</button>
+          <button id="accessibility" :disabled="! username">Accessibility</button>
+          <button id="settings" v-on:click="dashBoardButton" :disabled="! username">Settings!</button>
         </div>
       </div>
     </div>
@@ -150,6 +172,7 @@
       @updateTopBar="updateTopBar" 
       @updatePrice="updatePrice"
       @updateBookingType = "updateBookingType"
+      @logOut = "logOut"
       :user-name="username"
       :total-price="totalPrice"
       :booking-type="bookingType"
@@ -219,7 +242,8 @@
         console.log(event.srcElement.id);
         dashBoardOption.value = event.srcElement.id;
 
-        router.push("/")
+        showOverlay()
+
         router.push("/dashboard")
       }
 

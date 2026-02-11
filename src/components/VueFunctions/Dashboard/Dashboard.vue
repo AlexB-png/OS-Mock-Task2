@@ -36,7 +36,7 @@
         button {
           width: 20vw;
           height: 4vw;
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
       }
     }
@@ -47,9 +47,6 @@
 <template>
   <main>
     <div class="content">
-      <h1 v-if="userName">Welcome {{ userName }}</h1>
-      <h1 v-else>You Are Not Logged In!</h1>
-
       <div v-if="dashboardOption == 'bookings'">
         <h1>Hello From The Bookings Page!</h1>
       </div>
@@ -59,7 +56,7 @@
       </div>
 
       <div v-else-if="dashboardOption == 'settings'" class="settings">
-        <button v-on:click="deleteButton" class="montserrat">{{ deleteText }}</button>
+        <button v-on:click="deleteButton" class="montserrat" :disabled="! userName">{{ deleteText }}</button>
       </div>
 
       <div v-else>
@@ -75,6 +72,7 @@
 
 <script>
   import { ref , watch } from 'vue'
+    import { useRouter } from "vue-router";
   
   export default {
     name: "Dashboard",
@@ -82,12 +80,14 @@
       'userName' : String,
       'dashboardOption' : String
     },
-    setup(props) {
+    setup(props, {emit}) {
       const deleteText = ref("Delete Account!")
+
+      const router = useRouter()
 
       var deleteCount = -1
 
-      const deleteButton = () => {
+      async function deleteButton() {
         var messages = ["Are You sure?", "Are you REALLY sure?"]
 
         deleteCount += 1
@@ -97,7 +97,31 @@
         if (deleteCount < 2) {
           deleteText.value = messages[deleteCount]
         } else {
-          deleteText.value = "Account Deleted!"
+          let request = await fetch("http://127.0.0.1:5001/deleteaccount", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: props.userName,
+          })
+          })
+
+          var response = await request.json()
+
+          deleteText.value = "Goodbye!"
+
+          if (response['Status'] == false) {
+            deleteText.value = "Failed!"
+            alert(response['message'])
+          } else {
+            console.log(response["Status"])
+            console.log(response["message"])
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            emit("logOut")
+            router.push("/login")
+          }
         }
       }
 

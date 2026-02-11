@@ -10,7 +10,7 @@ export default {
     
     function buttonPress() {
       emit("updateBookingType", event.target.id)
-      router.push("/payment")
+      router.push("/zoobookingpage")
     }
     
     return {buttonPress}

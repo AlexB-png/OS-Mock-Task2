@@ -3,6 +3,7 @@ from flask_cors import CORS
 from components.PythonFunctions.LoginPageFunctions import CreateLogin , LoginCheck
 from components.PythonFunctions.ZooBooking import MakeZooBooking
 from components.PythonFunctions.HotelBooking import CreateHotelBooking
+from components.PythonFunctions.DeleteAccount import DeleteAccount
 
 app = Flask(__name__)
 CORS(app)
@@ -77,6 +78,17 @@ def HotelBooking():
   return {
     "Status" : response
   }
+
+@app.route("/deleteaccount", methods=['POST'])
+def DeleteUserAccount():
+  data = request.get_json()
+  username = data['username']
+
+  response = DeleteAccount(username)
+
+  print(response['status'])
+
+  return { "Status" : response['status'], "message" : response["message"] }
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])
