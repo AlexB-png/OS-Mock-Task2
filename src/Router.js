@@ -6,6 +6,7 @@ import ZooBookingAll from './components/VueFunctions/ZooBooking/ZooBookingAll.vu
 import ZooBookingPage from './components/VueFunctions/ZooPayment/ZooBookingPage.vue'
 import Dashboard from './components/VueFunctions/Dashboard/Dashboard.vue'
 import PaymentPage from './components/VueFunctions/PaymentPage/PaymentPage.vue'
+import Admin from './components/VueFunctions/Admin/Admin.vue'
 
 const routes = [
   { path: '/login', component: LoginPage },
@@ -14,7 +15,8 @@ const routes = [
   { path: '/zoobooking', component: ZooBookingAll},
   { path: '/zoobookingpage', component: ZooBookingPage},
   { path: '/dashboard', component: Dashboard},
-  { path: '/payment', component: PaymentPage}
+  { path: '/payment', component: PaymentPage},
+  { path: '/admin', component: Admin}
 ]
 
 export const router = createRouter({

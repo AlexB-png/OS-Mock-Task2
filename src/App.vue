@@ -183,7 +183,6 @@
 
 <script>
   import { ref } from 'vue';
-  import { RouterLink } from 'vue-router';
   import LoginPage from './components/VueFunctions/LoginPage/LoginPage.vue';
   import { useRouter } from "vue-router";
 

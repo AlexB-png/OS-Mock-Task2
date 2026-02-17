@@ -18,12 +18,13 @@ if __name__ == "__main__":
   cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.bookings}
                   (Booking_ID INTEGER PRIMARY KEY,
                   Type_Of_Bookings STRING,
-                  Account_ID INTEGER REFERENCES Accounts(Account_ID),
+                  Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE,
                   Date TEXT,
                   Adults INTEGER,
                   Child INTEGER,
                   Membership_Number INTEGER,
-                  Username STRING)""")
+                  Username STRING,
+                  Paid BOOLEAN)""")
   
   cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.hotel_booking}
                   (Booking_ID INTEGER PRIMARY KEY,
@@ -33,6 +34,7 @@ if __name__ == "__main__":
                   Guests INTEGER,
                   Singles INTEGER,
                   Doubles INTEGER,
-                  Account_ID INTEGER REFERENCES Accounts(Account_ID))""")
+                  Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE,
+                  Paid INTEGER DEFAULT 0)""")
 
   print("Connection Established!")

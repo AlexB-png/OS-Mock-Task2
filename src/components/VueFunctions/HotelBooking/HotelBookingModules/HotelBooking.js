@@ -1,4 +1,5 @@
 import { ref , watch } from 'vue'
+import { useRouter } from "vue-router";
 
 export default {
   name: "Booking",
@@ -14,6 +15,8 @@ export default {
     const startDate = ref("");
     const endDate = ref("");
     const errorMessage = ref("");
+
+    const router = useRouter();
 
     const buttonDisabled = ref(true);
     //
@@ -104,9 +107,13 @@ export default {
       })
     })
 
-    errorMessage.value = (await request.json())["Status"]
-  }
+    request = await request.json()
+    errorMessage.value = (request["Status"] + " ") + ("Room ID: ") + (request["rowid"])
 
+    if (request["Success"]) {
+      // router.push("/payment")
+    }
+  }
     return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled , ButtonPress};
 }
 }

@@ -1,0 +1,7 @@
+Make the banking deletion system
+
+Test Plan
+
+Admin Panel
+
+Purchase Page

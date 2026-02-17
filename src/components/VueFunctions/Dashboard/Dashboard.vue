@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="scss">
   * {
     padding: 0;
     margin: 0;
@@ -30,8 +30,10 @@
       .settings {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
+
+        height: 100%;
 
         button {
           width: 20vw;
@@ -56,6 +58,8 @@
       </div>
 
       <div v-else-if="dashboardOption == 'settings'" class="settings">
+        <button v-on:click="deleteBankingData" class="montserrat" :disabled="! userName">Delete Banking Data!</button>
+        <button v-on:click="adminCheck" class="montserrat" :disabled="! userName">Admin Panel!</button>
         <button v-on:click="deleteButton" class="montserrat" :disabled="! userName">{{ deleteText }}</button>
       </div>
 
@@ -63,16 +67,13 @@
         <h1>Your Selection Has Been Lost, Please Try Again!</h1>
       </div>
     </div>
-
-    
-    
   </main>
 </template>
 
 
 <script>
   import { ref , watch } from 'vue'
-    import { useRouter } from "vue-router";
+  import { useRouter } from "vue-router";
   
   export default {
     name: "Dashboard",
@@ -98,13 +99,13 @@
           deleteText.value = messages[deleteCount]
         } else {
           let request = await fetch("http://127.0.0.1:5001/deleteaccount", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            username: props.userName,
-          })
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              username: props.userName,
+              })
           })
 
           var response = await request.json()
@@ -125,7 +126,15 @@
         }
       }
 
-      return {deleteText, deleteButton}
+      async function deleteBankingData() {
+        console.log("Banking Data Deleted!") // This is a lie btw we're 100% selling this to china
+      }
+
+      async function adminCheck() {
+        router.push('/admin')
+      }
+
+      return {deleteText, deleteButton, deleteBankingData, adminCheck}
     }
   }
 </script>

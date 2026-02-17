@@ -4,6 +4,7 @@ from components.PythonFunctions.LoginPageFunctions import CreateLogin , LoginChe
 from components.PythonFunctions.ZooBooking import MakeZooBooking
 from components.PythonFunctions.HotelBooking import CreateHotelBooking
 from components.PythonFunctions.DeleteAccount import DeleteAccount
+from components.PythonFunctions.CheckAdmin import CheckAdmin
 
 app = Flask(__name__)
 CORS(app)
@@ -75,8 +76,16 @@ def HotelBooking():
 
   response = CreateHotelBooking(start, end, username, Guests, Singles, Doubles)
 
+  status = response[0]
+  success = response[1]
+  rowid = response[2]
+  
+  print(response)
+
   return {
-    "Status" : response
+    "Status" : status,
+    "Success" : success,
+    "rowid" : rowid
   }
 
 @app.route("/deleteaccount", methods=['POST'])
@@ -89,6 +98,17 @@ def DeleteUserAccount():
   print(response['status'])
 
   return { "Status" : response['status'], "message" : response["message"] }
+
+@app.route("/checkadmin", methods = ['POST'])
+def CheckIfAdmin():
+  data = request.get_json()
+  username = data["username"]
+
+  status = CheckAdmin(username)
+
+  return {'status' : status}
+
+
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])

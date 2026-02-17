@@ -5,6 +5,7 @@ def connect():
   locations = Databases()
   
   connection = sql.connect(locations.db_path)
+  connection.execute("PRAGMA foreign_keys = ON")
   cursor = connection.cursor()
 
   return connection , cursor , locations

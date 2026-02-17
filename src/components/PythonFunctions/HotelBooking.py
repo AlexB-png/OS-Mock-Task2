@@ -1,6 +1,6 @@
 import sqlite3
 import datetime
-from .BaseFunctions import Databases, HotelSettings
+from .BaseFunctions import Databases, HotelSettings, connect
 
 ## Convert String To DateTime ##
 def FormatDateTime(input):
@@ -10,11 +10,7 @@ def FormatDateTime(input):
 
 ## Make the booking into hotel (parameters Starting Date and the End date)
 def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Guests : int, Singles : int, Doubles : int):
-  # src/DataBase.db 
-  database = Databases.db_path
-
-  connection = sqlite3.connect(database)
-  cursor = connection.cursor()
+  connection, cursor , locations = connect()
 
   rooms = HotelSettings.max_rooms # Typically 50 # Change this in BaseFunctions.py
   current_room = 1
@@ -30,10 +26,21 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
     # If the room number is empty then break the loop and add booking to database
     if not room_num:
       # print("No Bookings Made Yet!")
-      cursor.execute("INSERT INTO Hotel_Bookings (Start_Date, End_Date, Room_Number, Account_ID, Guests, Singles, Doubles) VALUES (?,?,?,?,?,?,?)",(Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles))
+      ## Dont forget to change the other SQL statement below
+      cursor.execute("""INSERT INTO Hotel_Bookings
+                    (Start_Date,
+                    End_Date,
+                    Room_Number,
+                    Account_ID,
+                    Guests,
+                    Singles,
+                    Doubles,
+                    Paid)
+                    VALUES (?,?,?,?,?,?,?,?)""",
+                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0))
       found = True
       connection.commit()
-      return "Successfully Made Booking"
+      return ["Successfully Made Booking", True, cursor.lastrowid]
 
     # Iterate over the data for the room number to check if there is a booking already
     for booking in room_num:
@@ -70,6 +77,7 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
       else:
         found = True
     if found:
+      ## Dont forget to change the other SQL statement above
       cursor.execute("""INSERT INTO Hotel_Bookings
                     (Start_Date,
                     End_Date,
@@ -77,14 +85,15 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
                     Account_ID,
                     Guests,
                     Singles,
-                    Doubles)
-                    VALUES (?,?,?,?,?,?,?)""",
-                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles))
+                    Doubles,
+                    Paid)
+                    VALUES (?,?,?,?,?,?,?,?)""",
+                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0))
       connection.commit()
-      return "Successfully Made Booking"
+      return ["Successfully Made Booking", True, cursor.lastrowid]
 
     # Iterate up the room that is being checked
     current_room += 1
   
-  return "No Rooms Available"
+  return ["No Rooms Available", False, None]
 ##
