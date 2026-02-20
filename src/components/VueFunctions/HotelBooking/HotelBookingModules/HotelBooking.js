@@ -15,10 +15,12 @@ export default {
     const startDate = ref("");
     const endDate = ref("");
     const errorMessage = ref("");
-
     const router = useRouter();
-
     const buttonDisabled = ref(true);
+    //
+
+    // This controls the button that sends you to payment page //
+    const paymentButton = ref(true)
     //
 
     // When these variables change it will be executed
@@ -108,12 +110,20 @@ export default {
     })
 
     request = await request.json()
-    errorMessage.value = (request["Status"] + " ") + ("Room ID: ") + (request["rowid"])
 
-    if (request["Success"]) {
-      // router.push("/payment")
-    }
+    var RoomNum = request["rowid"]
+    var statusBool = request["Success"]
+    var StatusMessage = request["Status"]
+
+    errorMessage.value = (StatusMessage) + ("<br>") + ("Room Num: ") + (RoomNum)
+    paymentButton.value = !statusBool
+    emit("updateBookingRoomId", RoomNum)
   }
-    return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled , ButtonPress};
+
+  function PaymentTime() {
+    router.push("/payment")
+  }
+  
+  return { guests , single , double , startDate , endDate , errorMessage, buttonDisabled , paymentButton , ButtonPress, PaymentTime};
 }
 }

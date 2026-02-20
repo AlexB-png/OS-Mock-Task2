@@ -34,7 +34,8 @@
           <button class="montserrat" :disabled="buttonDisabled || userName === ''" v-on:click="ButtonPress" >Continue!</button>
         </div>
         <div class="status">
-          <h1 class="montserrat">{{ errorMessage }}</h1>
+          <h1 class="montserrat" v-html="errorMessage"></h1>
+          <button class="montserrat" v-on:click="PaymentTime" :disabled="paymentButton">Continue To Payment</button>
         </div>
       </div>
     </div>

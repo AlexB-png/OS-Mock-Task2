@@ -173,10 +173,12 @@
       @updatePrice="updatePrice"
       @updateBookingType = "updateBookingType"
       @logOut = "logOut"
+      @updateBookingRoomId = "UpdateBookedRoomID"
       :user-name="username"
       :total-price="totalPrice"
       :booking-type="bookingType"
       :dashboard-option="dashBoardOption"
+      :booked-room-id="BookedRoomID"
     ></router-view>
   </main>
 </template>
@@ -196,6 +198,15 @@
       const color = ref("rgb(100,0,0)");
       const totalPrice = ref(0);
       const bookingType = ref("")
+
+      // These are the variables for the payment page and updating //
+      const BookedRoomID = ref(null)
+
+      const UpdateBookedRoomID = (BookedRoom) => {
+        console.log(BookedRoom)
+        BookedRoomID.value = BookedRoom
+      }
+      //
 
       const router = useRouter();
 
@@ -258,7 +269,9 @@
               overlayShown,
               logOut,
               dashBoardOption,
-              dashBoardButton
+              dashBoardButton,
+              BookedRoomID,
+              UpdateBookedRoomID
             };
     }
   }

@@ -60,10 +60,15 @@ body {
           justify-content: center;
           align-items: center;
 
+          flex-direction: column;
+          gap: 2vw;
+
+          text-align: center;
+
           color: var(--green-text);
         }
 
-        .submit {
+        .submit , .status {
           button {
             width: 20vw;
             height: 3vw;
