@@ -5,6 +5,9 @@ from components.PythonFunctions.ZooBooking import MakeZooBooking
 from components.PythonFunctions.HotelBooking import CreateHotelBooking
 from components.PythonFunctions.DeleteAccount import DeleteAccount
 from components.PythonFunctions.CheckAdmin import CheckAdmin
+from components.PythonFunctions.MakePayment import makePayment
+from components.PythonFunctions.DeleteBooking import deleteBooking
+from components.PythonFunctions.GetBookings import getBookings
 
 app = Flask(__name__)
 CORS(app)
@@ -58,7 +61,8 @@ def zooBooking():
   response = MakeZooBooking(data)
 
   return {
-    "status": response
+    "status": response["message"],
+    "id": response["id"]
   }
 ##
 
@@ -74,7 +78,9 @@ def HotelBooking():
   Singles = data["singles"]
   Doubles = data["doubles"]
 
-  response = CreateHotelBooking(start, end, username, Guests, Singles, Doubles)
+  cost = data["totalPrice"]
+
+  response = CreateHotelBooking(start, end, username, Guests, Singles, Doubles, cost)
 
   status = response[0]
   success = response[1]
@@ -108,11 +114,38 @@ def CheckIfAdmin():
 
   return {'status' : status}
 
+@app.route("/payment", methods = ['POST'])
+def MakePaymentToDB():
+  data = request.get_json()
 
+  userName = data["Username"]
+
+  response = makePayment(data, userName)
+
+  return response
+
+@app.route("/cancel", methods = ["POST"])
+def CancelBooking():
+  data = request.get_json()
+
+  deleteBooking(data)
+
+  return {}
+
+@app.route("/checkbookings", methods = ["POST"])
+def CheckBookings():
+  data = request.get_json()
+
+  response = getBookings(data)
+  
+  return response
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])
 def Test():
+  data = request.get_json()
+  print(data)
+  
   return [True]
 ##
 

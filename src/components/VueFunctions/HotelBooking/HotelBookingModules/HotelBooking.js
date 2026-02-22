@@ -106,6 +106,7 @@ export default {
         guests: guestCount,
         singles: singleBed,
         doubles: doubleBed,
+        totalPrice: props.totalPrice
       })
     })
 
@@ -118,6 +119,7 @@ export default {
     errorMessage.value = (StatusMessage) + ("<br>") + ("Room Num: ") + (RoomNum)
     paymentButton.value = !statusBool
     emit("updateBookingRoomId", RoomNum)
+    emit("updateBookingType", "hotel")
   }
 
   function PaymentTime() {

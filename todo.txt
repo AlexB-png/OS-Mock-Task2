@@ -1,7 +1,7 @@
 Make the banking deletion system
 
-Test Plan
-
 Admin Panel
 
-Purchase Page
+Success message for deleting booking
+
+fix bug with zoo booking where status message reactivates button when not truthy

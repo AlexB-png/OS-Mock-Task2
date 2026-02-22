@@ -110,41 +110,41 @@
     <main>
       <div class="content" v-if="bookedRoomId">
         <div class="title">
-          <span class="welcomeUser montserrat">Payment Page!</span>
+          <span class="welcomeUser montserrat">Payment Page!!</span>
 
-            <span class="roomNum montserrat">Room Number: {{ bookedRoomId }}</span>
+            <span class="roomNum montserrat">Booking ID: {{ bookedRoomId }}</span>
         </div>
         
         <div class="column">
           <div class="columnOne">
             <div class="row">
               <span class="inputText montserrat">Cardholder Name:</span>
-              <input type="text" placeholder="Your Name Here!">
+              <input type="text" v-model="CardholderName" placeholder="Your Name Here!">
             </div>
 
             <div class="row">
               <span class="inputText montserrat">Card Number:</span>
-              <input type="number" placeholder="Your Card Number!">
+              <input type="text" v-model="CardNum" placeholder="Your Card Number!">
             </div>
 
             <div class="row">
               <span class="inputText montserrat">CVV Number:</span>
-              <input type="password" placeholder="Your CVV Number!">
+              <input type="password" v-model="CVV" placeholder="Your CVV Number!">
             </div>
 
             <div class="row">
               <span class="inputText montserrat">Expiration Date:</span>
-              <input type="date">
+              <input type="date" v-model="ExpiryDate">
             </div>
 
             <div class="row">
               <span class="inputText montserrat">Billing Address!</span>
-              <input type="text" placeholder="Your Billing Address!">
+              <input type="text" v-model="BillAddress" placeholder="Your Billing Address!">
             </div>
           </div>
 
           <div class="columnTwo">
-            
+            <button :disabled="!(CardholderName && CardNum && CVV && ExpiryDate && BillAddress)" v-on:click="CardInputButton">Submit</button>
           </div>
         </div>
       </div>
@@ -158,14 +158,47 @@
 
 
 <script>
+  import { ref } from "vue"
+  
   export default {
     name: 'PaymentPage',
     props: {
-      'bookedRoomId': String 
+      'bookedRoomId': String,
+      'bookingType': String,
+      'userName': String,
     },
     setup(props) {
+      const CardholderName = ref("")
+      const CardNum = ref("")
+      const CVV = ref("")
+      const ExpiryDate = ref("")
+      const BillAddress = ref("")
 
-      return {}
+      async function CardInputButton() {
+        let request = await fetch("http://127.0.0.1:5001/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            RoomNumber : props.bookedRoomId,
+
+            CardName : CardholderName.value,
+            CardNum : CardNum.value,
+            CVV : CVV.value,
+            Expiry : ExpiryDate.value,
+            BillAddress : BillAddress.value,
+            BookingType : props.bookingType,
+
+            Username : props.userName,
+          })
+        })
+
+        request = await request.json()
+        console.log(request)
+      }
+
+      return { CardholderName , CardNum , CVV , ExpiryDate , BillAddress , CardInputButton }
     }
   }
 </script>

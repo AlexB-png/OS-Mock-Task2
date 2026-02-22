@@ -9,7 +9,7 @@ def FormatDateTime(input):
 ##
 
 ## Make the booking into hotel (parameters Starting Date and the End date)
-def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Guests : int, Singles : int, Doubles : int):
+def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Guests : int, Singles : int, Doubles : int, Cost : int ):
   connection, cursor , locations = connect()
 
   rooms = HotelSettings.max_rooms # Typically 50 # Change this in BaseFunctions.py
@@ -21,7 +21,7 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
 
   while current_room <= rooms and not found:
     # Get data for a specific room number
-    room_num = cursor.execute("SELECT * from Hotel_Bookings WHERE Room_Number = ?",(current_room,)).fetchall()
+    room_num = cursor.execute("SELECT * from Hotel_Bookings WHERE Room_Number = ? AND Paid = 1",(current_room,)).fetchall()
     
     # If the room number is empty then break the loop and add booking to database
     if not room_num:
@@ -35,9 +35,10 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
                     Guests,
                     Singles,
                     Doubles,
-                    Paid)
-                    VALUES (?,?,?,?,?,?,?,?)""",
-                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0))
+                    Paid,
+                    Cost)
+                    VALUES (?,?,?,?,?,?,?,?,?)""",
+                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0, Cost))
       found = True
       connection.commit()
       return ["Successfully Made Booking", True, cursor.lastrowid]
@@ -86,9 +87,10 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
                     Guests,
                     Singles,
                     Doubles,
-                    Paid)
-                    VALUES (?,?,?,?,?,?,?,?)""",
-                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0))
+                    Paid,
+                    Cost)
+                    VALUES (?,?,?,?,?,?,?,?,?)""",
+                    (Start_Date, End_Date, current_room, Account_ID, Guests, Singles, Doubles, 0, Cost))
       connection.commit()
       return ["Successfully Made Booking", True, cursor.lastrowid]
 

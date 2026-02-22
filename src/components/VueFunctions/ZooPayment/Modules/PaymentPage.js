@@ -1,5 +1,5 @@
 import { ref , watch , onMounted} from 'vue'
-
+import { useRouter } from "vue-router";
 
 export default {
   name: 'LoginPage',
@@ -13,7 +13,11 @@ export default {
     const child = ref(0)
     const date = ref("")
     const membershipNum = ref(0)
-    const statusText = ref("Status Text Here")
+    const statusText = ref("")
+
+    const latestID = ref(0)
+
+    const router = useRouter()
 
     // Only used in education booking
     const school = ref("");
@@ -52,14 +56,24 @@ export default {
           adult: adult.value,
           child: child.value,
           membershipnum: membershipNum.value,
-          bookingtype: props.bookingType
+          bookingtype: props.bookingType,
+          totalPrice: props.totalPrice
         })
       })
       const response = await request.json()
+
+      latestID.value = response["id"]
+      console.log(latestID)
       
       statusText.value = response["status"]
     }
 
-    return {button, adult, child, date, membershipNum, school, statusText}
+    function Payment() {
+      emit("updateBookingRoomId", latestID.value)
+      console.log("Sent!")
+      router.push("/payment")
+    }
+
+    return {button, adult, child, date, membershipNum, school, statusText, Payment, latestID}
 }
 }

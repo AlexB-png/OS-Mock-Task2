@@ -1,0 +1,27 @@
+from .BaseFunctions import Databases, connect, Colors
+
+
+def deleteBooking(data):
+  connection, cursor , locations = connect()
+
+  print(data)
+
+  username = data["Username"]
+  bookingType = data["BookingType"]
+  bookingId = data["BookingId"]
+
+  userId = cursor.execute(f"SELECT Account_ID FROM {Databases.login} WHERE Username = ?", (username,)).fetchone()
+  if not userId:
+    return False
+  
+  userId = userId[0]
+
+  if bookingType == 'zoo':
+    cursor.execute(f"DELETE FROM {Databases.bookings} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId))
+  else:
+    cursor.execute(f"DELETE FROM {Databases.hotel_booking} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId))
+
+  connection.commit()
+  connection.close()
+  
+  print(userId)

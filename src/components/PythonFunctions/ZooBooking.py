@@ -10,6 +10,7 @@ class user:
   Child = 0
   MembershipNum = 0
   BookingType = ""
+  cost = 0
 ##
 
 def FormatDateTime(input):
@@ -27,15 +28,16 @@ def DatabaseInteraction(UserClass):
   ##
 
   if CurrentDate >= FormatDateTime(UserClass.Date):  ## If input date is before the current date ##
-    return "The Date Is Invalid!"
+    return {"message":"The Date Is Invalid!", "id": False}
   elif not UserClass.MembershipNum and UserClass.BookingType == 'member':
-    return "The MemberShip Number is empty!"
+    return {"message":"The MemberShip Number is empty!", "id": False}
   else: 
     Account_ID = cursor.execute("SELECT Account_ID From Accounts WHERE Username = ?", (UserClass.Username,)).fetchone()[0]
-    cursor.execute(f"INSERT INTO {Databases.bookings} (Type_Of_Bookings, Account_ID, Date, Adults, Child, Membership_Number, Username) VALUES (?, ?, ?, ?, ?, ?, ?)", (UserClass.BookingType, Account_ID, UserClass.Date, UserClass.Adult, UserClass.Child, UserClass.MembershipNum, UserClass.Username))
+    cursor.execute(f"INSERT INTO {Databases.bookings} (Type_Of_Bookings, Account_ID, Date, Adults, Child, Membership_Number, Username, Cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (UserClass.BookingType, Account_ID, UserClass.Date, UserClass.Adult, UserClass.Child, UserClass.MembershipNum, UserClass.Username, UserClass.cost))
+    new_row = cursor.lastrowid
     connection.commit()
     connection.close()
-    return "Success!"
+    return {"message":"Success!", "id": new_row}
 
 
 def GetParams(data):
@@ -48,6 +50,7 @@ def GetParams(data):
   UserClass.MembershipNum = data["membershipnum"]  ## Membership Num if they are a member ##
   UserClass.Adult = data["adult"]  ## How many adults ##
   UserClass.Child = data["child"]  ## How many children ##
+  UserClass.cost = data["totalPrice"]  ## Total Cost ##
   ##
 
   return UserClass  ## Returns the newly created class ##

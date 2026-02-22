@@ -200,7 +200,7 @@
       const bookingType = ref("")
 
       // These are the variables for the payment page and updating //
-      const BookedRoomID = ref(null)
+      const BookedRoomID = ref(0)
 
       const UpdateBookedRoomID = (BookedRoom) => {
         console.log(BookedRoom)
@@ -271,7 +271,7 @@
               dashBoardOption,
               dashBoardButton,
               BookedRoomID,
-              UpdateBookedRoomID
+              UpdateBookedRoomID,
             };
     }
   }

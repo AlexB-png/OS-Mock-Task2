@@ -24,7 +24,8 @@ if __name__ == "__main__":
                   Child INTEGER,
                   Membership_Number INTEGER,
                   Username STRING,
-                  Paid BOOLEAN)""")
+                  Paid INTEGER DEFAULT 0,
+                  Cost INTEGER)""")
   
   cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.hotel_booking}
                   (Booking_ID INTEGER PRIMARY KEY,
@@ -35,6 +36,13 @@ if __name__ == "__main__":
                   Singles INTEGER,
                   Doubles INTEGER,
                   Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE,
-                  Paid INTEGER DEFAULT 0)""")
+                  Paid INTEGER DEFAULT 0,
+                  Cost INTEGER)""")
+  
+  cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.bank}
+                  (Name STRING,
+                  Expiration STRING,
+                  Address STRING,
+                  Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE)""")
 
   print("Connection Established!")

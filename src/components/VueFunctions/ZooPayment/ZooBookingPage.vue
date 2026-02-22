@@ -46,6 +46,8 @@
         <div class="status">
           <h1>{{ statusText }}</h1>
         </div>
+
+        <button class="montserrat" :disabled="!latestID" v-on:click="Payment">Payment</button>
       </div>
 
       <div class="education" v-else>
@@ -88,6 +90,8 @@
         <div class="status">
           <h1>{{ statusText }}</h1>
         </div>
+
+        <button class="montserrat" :disabled="!latestID" v-on:click="Payment">Payment</button>
       </div>
     </div>
 
