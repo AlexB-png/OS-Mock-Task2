@@ -54,6 +54,12 @@
             text-decoration: underline;
           }
 
+          .option {
+            width: 10vw;
+            height: 2vw;
+            font-size: 1.5rem;
+          }
+
           .HotelCancelButton {
             width: 100%;
             height: 3vw;
@@ -80,7 +86,7 @@
 
               input {
                 height: 2vw;
-                font-size: 2rem;
+                font-size: 1rem;
                 width: 10vw;
               }
             }
@@ -102,6 +108,11 @@
           <div class="objects">
             <div class="object">
               <span class="ObjectTitle montserrat">Cancel Hotel Booking</span>
+
+              <select class="montserrat option" v-model="CancelOption">
+                <option class="montserrat" value="hotel">Hotel</option>
+                <option class="montserrat" value="zoo">Zoo</option>
+              </select>
               
               <div class="ObjectColumns">
                 <div class="ColumnsObject">
@@ -111,7 +122,7 @@
 
                 <div class="ColumnsObject">
                   <h1>Username:</h1>
-                  <input type="number" v-model="HotelCancelUser" class="montserrat">
+                  <input type="text" v-model="HotelCancelUser" class="montserrat">
                 </div>
               </div>
 
@@ -170,6 +181,7 @@
       }
 
       // Hotel Delete Booking Button //
+      const CancelOption = ref("")
       const HotelCancelId = ref(0)
       const HotelCancelUser = ref("")
       const StatusMessage = ref("Submit")
@@ -181,18 +193,18 @@
           },
           body: JSON.stringify({
             Username: HotelCancelUser.value,
-            BookingType : 'hotel',
+            BookingType : CancelOption.value,
             BookingId : HotelCancelId.value
           })
         })
 
-        StatusMessage.value = (await request.json())
+        StatusMessage.value = (await request.json())["message"]
 
       }
 
       const router = useRouter()
 
-      return { checkAdmin , adminStatus , HotelDeleteBooking, HotelCancelUser , HotelCancelId , StatusMessage}
+      return { checkAdmin , adminStatus , HotelDeleteBooking, HotelCancelUser , HotelCancelId , StatusMessage , CancelOption}
     }
   }
 </script>

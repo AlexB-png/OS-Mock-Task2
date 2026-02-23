@@ -12,7 +12,7 @@ def deleteBooking(data):
 
   userId = cursor.execute(f"SELECT Account_ID FROM {Databases.login} WHERE Username = ?", (username,)).fetchone()
   if not userId:
-    return False
+    return {"message" : "Username Doesn't Exist!"}
   
   userId = userId[0]
 
