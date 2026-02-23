@@ -19,6 +19,7 @@ class Databases:
   bank = "Bank_Details"
   hotel_booking = "Hotel_Bookings"
   bookings = "Zoo_Bookings"
+  loyalty = "Loyalty"
 
 class Colors:
   red = "rgb(255,51,0)"

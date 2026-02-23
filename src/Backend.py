@@ -9,6 +9,7 @@ from components.PythonFunctions.MakePayment import makePayment
 from components.PythonFunctions.DeleteBooking import deleteBooking
 from components.PythonFunctions.GetBookings import getBookings
 from components.PythonFunctions.DeleteBankDetails import deleteBankDetails
+from components.PythonFunctions.LoyaltySystem import claimLoyalty, checkLoyaltyPoints
 
 app = Flask(__name__)
 CORS(app)
@@ -123,6 +124,8 @@ def MakePaymentToDB():
 
   response = makePayment(data, userName)
 
+  print(response)
+
   return response
 
 @app.route("/cancel", methods = ["POST"])
@@ -146,6 +149,25 @@ def DeleteBankDetails():
   data = request.get_json()
 
   response = deleteBankDetails(data)
+
+  return response
+
+@app.route("/claimloyalty", methods = ["POST"])
+def ClaimLoyaltyRoute():
+  data = request.get_json()
+
+  username = data["Username"]
+  response = claimLoyalty(username)
+
+  return [response]
+
+@app.route("/checkloyalty", methods = ["POST"])
+def CheckLoyaltyPointsRouter():
+  data = request.get_json()
+
+  response = checkLoyaltyPoints(data["Username"])
+
+  print(response)
 
   return response
 

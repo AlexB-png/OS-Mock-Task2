@@ -145,6 +145,8 @@
 
           <div class="columnTwo">
             <button :disabled="!(CardholderName && CardNum && CVV && ExpiryDate && BillAddress)" v-on:click="CardInputButton">Submit</button>
+
+            <button :disabled="!!(CardholderName && CardNum && CVV && ExpiryDate && BillAddress)" v-on:click="ClaimLoyalty">Claim Loyalty!</button>
           </div>
         </div>
       </div>
@@ -159,7 +161,8 @@
 
 <script>
   import { ref } from "vue"
-  
+  import { useRouter } from "vue-router";
+
   export default {
     name: 'PaymentPage',
     props: {
@@ -173,6 +176,7 @@
       const CVV = ref("")
       const ExpiryDate = ref("")
       const BillAddress = ref("")
+      const router = useRouter();
 
       async function CardInputButton() {
         let request = await fetch("http://127.0.0.1:5001/payment", {
@@ -189,16 +193,60 @@
             Expiry : ExpiryDate.value,
             BillAddress : BillAddress.value,
             BookingType : props.bookingType,
+            Loyalty: false,
 
             Username : props.userName,
           })
         })
 
         request = await request.json()
-        console.log(request)
+        console.log(request["message"])
+
+        if (request["message"] == 'Success!') {
+          router.push("/")
+        }
       }
 
-      return { CardholderName , CardNum , CVV , ExpiryDate , BillAddress , CardInputButton }
+      async function ClaimLoyalty() {
+        let request = await fetch("http://127.0.0.1:5001/claimloyalty", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            Username : props.userName,
+          })
+        })
+
+        request = await request.json()
+        
+        if (request[0] === true) {
+          let request = await fetch("http://127.0.0.1:5001/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            RoomNumber : props.bookedRoomId,
+
+            CardName : "",
+            CardNum : "",
+            CVV : "",
+            Expiry : "",
+            BillAddress : "",
+            BookingType : props.bookingType,
+            Loyalty: true,
+
+            Username : props.userName,
+          })
+        })
+        console.log(request)
+        } else {
+          console.log("Nope!")
+        }
+      }
+
+      return { CardholderName , CardNum , CVV , ExpiryDate , BillAddress , CardInputButton , ClaimLoyalty}
     }
   }
 </script>

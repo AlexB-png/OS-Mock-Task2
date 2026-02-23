@@ -45,4 +45,9 @@ if __name__ == "__main__":
                   Address STRING,
                   Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE)""")
 
+  cursor.execute(f"""CREATE TABLE IF NOT EXISTS {locations.loyalty}
+                  (Account_ID INTEGER REFERENCES Accounts(Account_ID) ON DELETE CASCADE,
+                  Bookings INTEGER
+                  )""")
+
   print("Connection Established!")

@@ -152,6 +152,7 @@
       userName : String
     },
     setup(props) {
+      const router = useRouter()
       const adminStatus = ref(false)
       
       onMounted(() => {
@@ -185,6 +186,7 @@
       const HotelCancelId = ref(0)
       const HotelCancelUser = ref("")
       const StatusMessage = ref("Submit")
+      
       async function HotelDeleteBooking() {
         let request = await fetch("http://127.0.0.1:5001/cancel", {
           method: "POST",
@@ -199,10 +201,7 @@
         })
 
         StatusMessage.value = (await request.json())["message"]
-
       }
-
-      const router = useRouter()
 
       return { checkAdmin , adminStatus , HotelDeleteBooking, HotelCancelUser , HotelCancelId , StatusMessage , CancelOption}
     }

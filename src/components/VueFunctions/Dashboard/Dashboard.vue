@@ -183,6 +183,11 @@
           height: 2vw;
           font-size: 1rem;
         }
+
+        .status {
+          color: var(--green-text);
+          font-size: 2rem;
+        }
       }
 
       .settings {
@@ -209,6 +214,7 @@
     <div class="content">
       <div v-if="dashboardOption == 'bookings'" class="bookings">
         <span class="montserrat title">Bookings Page</span>
+        <span class="montserrat">Loyalty Points: {{ LoyaltyPoints }}</span>
 
         <div class="columns">
           <div class="column1">
@@ -294,6 +300,8 @@
         </div>
 
         <button class="montserrat" v-on:click="deleteBooking" :disabled="!(BookingType && BookingId)">Delete Your Booking!</button>
+
+        <span class="status montserrat">{{BookingStatus}}</span>
       </div>
 
       <div v-else-if="dashboardOption == 'settings'" class="settings">
@@ -367,6 +375,7 @@
       // End of delete account button //
 
       // Delete Booking Button //
+      const BookingStatus = ref("")
       const BookingType = ref("")
       const BookingId = ref(0)
       
@@ -383,7 +392,8 @@
           })
         })
         
-        console.log(request)
+        request = await request.json()
+        BookingStatus.value = request['message']
       }
       // End of delete booking button //
 
@@ -407,11 +417,30 @@
       
       // End of getting bookings //
 
+      // Get Loyalty Points //
+      const LoyaltyPoints = ref("")
+      async function GetLoyalty() {
+        console.log("Getting Loyalty Points")        
+        let request = await fetch("http://127.0.0.1:5001/checkloyalty", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            Username : props.userName,
+          })
+        })
+
+        request = await request.json()
+        LoyaltyPoints.value = request[0]
+      }
+
       // This runs if rendered page is bookings //
       watch(() => props.dashboardOption, (NewValue) => {
         if (NewValue === 'bookings') {
           console.log("Get Bookings");
           GetBookings()
+          GetLoyalty()
         }
         else {
           console.log("No fetch :(");
@@ -441,7 +470,7 @@
         router.push('/admin')
       }
 
-      return {deleteText, BookingId, BookingType, HotelBookings, ZooBookings, BankButtonText, deleteButton, deleteBankingData, adminCheck, deleteBooking}
+      return {deleteText, BookingId, BookingType, HotelBookings, ZooBookings, BankButtonText, BookingStatus, LoyaltyPoints, GetLoyalty, deleteButton, deleteBankingData, adminCheck, deleteBooking}
     }
   }
 </script>

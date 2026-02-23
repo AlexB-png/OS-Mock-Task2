@@ -1,4 +1,5 @@
 from .BaseFunctions import Databases, connect, Colors
+from .LoyaltySystem import LoyaltySystem
 
 def makePayment(data, username):
   bookedRoomNumber = data["RoomNumber"]
@@ -8,6 +9,7 @@ def makePayment(data, username):
   cvv = data["CVV"]
   expiry = data["Expiry"]
   billingAddress = data["BillAddress"]
+  loyalty = data["Loyalty"]
 
   bookingID = data["RoomNumber"]
 
@@ -15,10 +17,11 @@ def makePayment(data, username):
 
   bookingType = data["BookingType"]
 
-  if len(cardNum) != 16:
-    return {"message": "Card number is not 16 digits", "success": False}
-  elif len(cvv) != 3:
-    return {"message": "CCV is not 3 digits long", "success": False}
+  if (not loyalty):
+    if len(cardNum) != 16:
+      return {"message": "Card number is not 16 digits", "success": False}
+    elif len(cvv) != 3:
+      return {"message": "CCV is not 3 digits long", "success": False}
 
   addResponse = addToDB(cardName, expiry, billingAddress, username, bookingType, bookingID)
   return {"message": "Success!", "success": True}
@@ -44,3 +47,5 @@ def addToDB(cardName, expiry, billingAddress, username, bookingType, bookingID):
 
   connection.commit()
   connection.close()
+
+  LoyaltySystem(username)
