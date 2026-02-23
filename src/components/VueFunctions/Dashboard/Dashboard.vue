@@ -297,7 +297,7 @@
       </div>
 
       <div v-else-if="dashboardOption == 'settings'" class="settings">
-        <button v-on:click="deleteBankingData" class="montserrat" :disabled="! userName">Delete Banking Data!</button>
+        <button v-on:click="deleteBankingData" class="montserrat" :disabled="! userName">{{ BankButtonText }}</button>
         <button v-on:click="adminCheck" class="montserrat" :disabled="! userName">Admin Panel!</button>
         <button v-on:click="deleteButton" class="montserrat" :disabled="! userName">{{ deleteText }}</button>
       </div>
@@ -418,15 +418,30 @@
         }
       }, { immediate : true })
 
+      // Delete Bank Details //
+      const BankButtonText = ref("Delete Banking Data")
       async function deleteBankingData() {
-        console.log("Banking Data Deleted!") // This is a lie btw we're 100% selling this to china
-      }
+        let request = await fetch("http://127.0.0.1:5001/deletebankdetails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            UserName : props.userName,
+          })
+          })
+          request = await request.json()
+
+          console.log(request)
+          
+          BankButtonText.value = request["message"]
+        }
 
       async function adminCheck() {
         router.push('/admin')
       }
 
-      return {deleteText, BookingId, BookingType, HotelBookings, ZooBookings, deleteButton, deleteBankingData, adminCheck, deleteBooking}
+      return {deleteText, BookingId, BookingType, HotelBookings, ZooBookings, BankButtonText, deleteButton, deleteBankingData, adminCheck, deleteBooking}
     }
   }
 </script>

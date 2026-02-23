@@ -8,6 +8,7 @@ from components.PythonFunctions.CheckAdmin import CheckAdmin
 from components.PythonFunctions.MakePayment import makePayment
 from components.PythonFunctions.DeleteBooking import deleteBooking
 from components.PythonFunctions.GetBookings import getBookings
+from components.PythonFunctions.DeleteBankDetails import deleteBankDetails
 
 app = Flask(__name__)
 CORS(app)
@@ -128,9 +129,9 @@ def MakePaymentToDB():
 def CancelBooking():
   data = request.get_json()
 
-  deleteBooking(data)
+  reponse = deleteBooking(data)
 
-  return {}
+  return reponse
 
 @app.route("/checkbookings", methods = ["POST"])
 def CheckBookings():
@@ -138,6 +139,14 @@ def CheckBookings():
 
   response = getBookings(data)
   
+  return response
+
+@app.route("/deletebankdetails", methods = ['POST'])
+def DeleteBankDetails():
+  data = request.get_json()
+
+  response = deleteBankDetails(data)
+
   return response
 
 ## This is the test router for making sure that the app will make a correct fetch request

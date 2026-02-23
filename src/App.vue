@@ -152,7 +152,6 @@
           <button v-on:click="logOut" :disabled="! username">Log Out!</button>
           <button id="bookings" v-on:click="dashBoardButton" :disabled="! username">See Your Bookings!</button>
           <button id="cancel" v-on:click="dashBoardButton" :disabled="! username">Cancel Bookings!</button>
-          <button id="accessibility" :disabled="! username">Accessibility</button>
           <button id="settings" v-on:click="dashBoardButton" :disabled="! username">Settings!</button>
         </div>
       </div>

@@ -6,7 +6,7 @@ def deleteBooking(data):
 
   print(data)
 
-  username = data["Username"]
+  username = str(data["Username"])
   bookingType = data["BookingType"]
   bookingId = data["BookingId"]
 
@@ -24,4 +24,4 @@ def deleteBooking(data):
   connection.commit()
   connection.close()
   
-  print(userId)
+  return {"message" : "Success!"}
