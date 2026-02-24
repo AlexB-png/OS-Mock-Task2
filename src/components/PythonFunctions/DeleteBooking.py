@@ -4,8 +4,6 @@ from .BaseFunctions import Databases, connect, Colors
 def deleteBooking(data):
   connection, cursor , locations = connect()
 
-  print(data)
-
   username = str(data["Username"])
   bookingType = data["BookingType"]
   bookingId = data["BookingId"]
@@ -17,7 +15,10 @@ def deleteBooking(data):
   userId = userId[0]
 
   if bookingType == 'zoo':
-    cursor.execute(f"DELETE FROM {Databases.bookings} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId))
+    if cursor.execute(f"SELECT * FROM {Databases.bookings} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId)).fetchone():
+      cursor.execute(f"DELETE FROM {Databases.bookings} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId))
+    else:
+      return {"message" : "No Bookings Exist!"}
   else:
     cursor.execute(f"DELETE FROM {Databases.hotel_booking} WHERE Booking_ID = ? AND Account_ID = ?", (bookingId, userId))
 

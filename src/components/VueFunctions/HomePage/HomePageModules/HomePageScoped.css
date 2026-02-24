@@ -3,7 +3,7 @@ main {
 }
 
   .content {
-    background-color: rgba(265, 247, 239);
+    background-color: var(--green);
     
     padding-top: 10vh;
     
@@ -36,9 +36,9 @@ main {
     .hotel, .zoo {
       height: clamp(0px,80vw,600px);
       width: 35vw;
-      background-color: #A8BBA3;
+      background-color: var(--green-light);
 
-      color: rgb(91, 108, 62);
+      color: var(--green-text);
       border-radius: 20px;
 
       backdrop-filter: blur(4px);
@@ -101,7 +101,7 @@ main {
     .hotelEvent, .zooEvent {
       height: clamp(0px,80vw,600px);;
       width: 35vw;
-      background-color: #B87C4C;
+      background-color: var(--orange);
       
       border-radius: 20px;
 
@@ -119,7 +119,7 @@ main {
 
       h2 {
         font-size: 1.5rem;
-        color: rgb(154, 74, 16);
+        color: var(--pink);
 
         @media (max-width: 1024px) {
           font-size: 2.5rem;
@@ -127,7 +127,7 @@ main {
       }
 
       h1 {
-        color: rgb(124, 74, 16);
+        color: var(--pink);
         font-size: 3rem;
 
         @media (max-width: 1024px) {
@@ -137,7 +137,7 @@ main {
     }
 
     .row3 {
-      background-color: #A8BBA3;
+      background-color: var(--green-light);
       width: 73vw;
       height: clamp(0px,60vw,600px);
       border-radius: 20px;
@@ -151,7 +151,7 @@ main {
       
 
       h1 {
-        color: #437057;
+        color: var(--green-text);
 
         @media (max-width: 1024px) {
           font-size: 5.5rem;
@@ -161,7 +161,7 @@ main {
       p {
         font-size: 2rem;
 
-        color: rgb(91, 108, 62);
+        color: var(--green-text);
 
         @media (max-width: 1024px) {
           font-size: 3rem;

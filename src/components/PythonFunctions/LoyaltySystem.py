@@ -19,8 +19,6 @@ def LoyaltySystem(username):
   
   currentLoyalty += 1
 
-  print(currentLoyalty)
-
   cursor.execute("UPDATE Loyalty SET Bookings = ? WHERE Account_ID = ?", (currentLoyalty,ID))
   connection.commit()
 
@@ -42,8 +40,6 @@ def claimLoyalty(username):
     currentLoyalty = currentLoyalty[0]
   
   currentLoyalty -= 10
-
-  print(currentLoyalty)
 
   if currentLoyalty >= 0:
     cursor.execute("UPDATE Loyalty SET Bookings = ? WHERE Account_ID = ?", (currentLoyalty,ID))

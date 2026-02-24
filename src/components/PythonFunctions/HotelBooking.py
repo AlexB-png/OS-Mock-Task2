@@ -12,12 +12,19 @@ def FormatDateTime(input):
 def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Guests : int, Singles : int, Doubles : int, Cost : int ):
   connection, cursor , locations = connect()
 
+  ## Check whether the input dates are before today ##
+  today = datetime.datetime.now().date()
+  invalidInput = (FormatDateTime(Start_Date).date() < today) or (FormatDateTime(End_Date).date() < today)
+
+  if invalidInput:
+    return ["Invalid Start Or End Date", False, "N/A"]
+  ##
+
   rooms = HotelSettings.max_rooms # Typically 50 # Change this in BaseFunctions.py
   current_room = 1
   found = False
 
   Account_ID = cursor.execute(f"SELECT Account_ID FROM {Databases.login} WHERE Username = ?", (Account_Name,)).fetchall()[0][0]
-  # print(Account_ID)
 
   while current_room <= rooms and not found:
     # Get data for a specific room number
@@ -25,7 +32,6 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
     
     # If the room number is empty then break the loop and add booking to database
     if not room_num:
-      # print("No Bookings Made Yet!")
       ## Dont forget to change the other SQL statement below
       cursor.execute("""INSERT INTO Hotel_Bookings
                     (Start_Date,
@@ -67,9 +73,6 @@ def CreateHotelBooking(Start_Date : str, End_Date : str, Account_Name : str, Gue
 
       # One variable for all
       invalid = Equal or Start_Between or End_Between or Overlap or Reverse_Overlap
-
-      # debug
-      # print(invalid)
 
       # If the dates are invalid then dont repeat loop for this room number and set found to false
       if invalid:

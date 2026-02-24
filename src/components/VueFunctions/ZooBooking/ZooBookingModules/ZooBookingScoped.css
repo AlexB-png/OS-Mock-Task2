@@ -35,7 +35,7 @@ main {
     justify-content: space-between;
     
     .option {
-      background-color: rgb(189, 228, 179);
+      background-color: var(--green-lighter);
       height: 20vw;
       width: 20vw;
 
@@ -71,7 +71,7 @@ main {
     width: 70vw;
     height: 20vw;
 
-    background-color: rgb(189, 228, 179);
+    background-color: var(--green-light);
 
     border-radius: 1vw;
 

@@ -87,8 +87,6 @@ def HotelBooking():
   success = response[1]
   rowid = response[2]
   
-  print(response)
-
   return {
     "Status" : status,
     "Success" : success,
@@ -101,8 +99,6 @@ def DeleteUserAccount():
   username = data['username']
 
   response = DeleteAccount(username)
-
-  print(response['status'])
 
   return { "Status" : response['status'], "message" : response["message"] }
 
@@ -122,8 +118,6 @@ def MakePaymentToDB():
   userName = data["Username"]
 
   response = makePayment(data, userName)
-
-  print(response)
 
   return response
 
@@ -158,16 +152,12 @@ def CheckLoyaltyPointsRouter():
 
   response = checkLoyaltyPoints(data["Username"])
 
-  print(response)
-
   return response
 
 ## This is the test router for making sure that the app will make a correct fetch request
 @app.route("/test", methods=['POST'])
 def Test():
-  data = request.get_json()
-  print(data)
-  
+  data = request.get_json()  
   return [True]
 ##
 

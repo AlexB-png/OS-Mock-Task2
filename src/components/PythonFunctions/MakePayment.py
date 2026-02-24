@@ -13,8 +13,6 @@ def makePayment(data, username):
 
   bookingID = data["RoomNumber"]
 
-  print(bookingID)
-
   bookingType = data["BookingType"]
 
   if (not loyalty):

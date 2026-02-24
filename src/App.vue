@@ -1,4 +1,38 @@
 <style lang="scss">
+  :root {
+  --green : #A8BBA3;
+  --white : #F7F4EA;
+  --pink : #EBD9D1;
+  --orange : #B87C4C;
+  --red : #b84e4c;
+
+  --green-hover : #8aa783;
+
+  --green-light : rgb(208, 227, 203);
+
+  --green-text : rgb(108, 127, 103);
+
+  --green-lighter : rgb(188, 207, 183);
+  }
+
+  :root.contrast {
+    --green : #495146;
+    --white : #8f8d89;
+    --pink : #8e6958;
+    --orange : #5b3e26;
+
+
+    --red : #682c2b;
+
+    --green-hover : #455342;
+
+    --green-light : rgb(122, 134, 119);
+
+    --green-text : rgb(63, 74, 60);
+
+    --green-lighter : rgb(102, 114, 99)
+  }
+  
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
   .montserrat {
@@ -153,6 +187,7 @@
           <button id="bookings" v-on:click="dashBoardButton" :disabled="! username">See Your Bookings!</button>
           <button id="cancel" v-on:click="dashBoardButton" :disabled="! username">Cancel Bookings!</button>
           <button id="settings" v-on:click="dashBoardButton" :disabled="! username">Settings!</button>
+          <button id="settings" v-on:click="darkMode">Dark Mode!</button>
         </div>
       </div>
     </div>
@@ -211,6 +246,10 @@
 
       const dashBoardOption = ref("")
       const overlayShown = ref("none")
+
+      const darkMode = () => {
+        document.documentElement.classList.toggle("contrast");
+      }
 
       // Update the username on the top bar
       // Emit message from LoginPage.vue //
@@ -271,6 +310,7 @@
               dashBoardButton,
               BookedRoomID,
               UpdateBookedRoomID,
+              darkMode
             };
     }
   }

@@ -8,7 +8,7 @@ main {
   align-items: center;
   margin:0;
 
-  background-color: #F7F6D3;
+  background-color: var(--green);
 
   height: 100vh;
 }
@@ -20,7 +20,7 @@ main {
   height: 80vh;
   width: 35vw;
 
-  background-color: #C7DB9C;
+  background-color: var(--green-light);
   border-radius: 20px;
 
   flex-direction: column;
@@ -31,7 +31,7 @@ main {
   }
 
   h1 , h2 {
-    color: #626F47;
+    color: var(--green-text);
     font-size: 2rem;
 
     height: 1vw;
