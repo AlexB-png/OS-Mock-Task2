@@ -8,7 +8,6 @@ from components.PythonFunctions.CheckAdmin import CheckAdmin
 from components.PythonFunctions.MakePayment import makePayment
 from components.PythonFunctions.DeleteBooking import deleteBooking
 from components.PythonFunctions.GetBookings import getBookings
-from components.PythonFunctions.DeleteBankDetails import deleteBankDetails
 from components.PythonFunctions.LoyaltySystem import claimLoyalty, checkLoyaltyPoints
 
 app = Flask(__name__)
@@ -142,14 +141,6 @@ def CheckBookings():
 
   response = getBookings(data)
   
-  return response
-
-@app.route("/deletebankdetails", methods = ['POST'])
-def DeleteBankDetails():
-  data = request.get_json()
-
-  response = deleteBankDetails(data)
-
   return response
 
 @app.route("/claimloyalty", methods = ["POST"])
