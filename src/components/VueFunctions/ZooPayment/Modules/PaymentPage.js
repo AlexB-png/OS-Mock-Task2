@@ -29,7 +29,6 @@ export default {
     })
 
     watch([adult, child, date], () => {
-      console.log("Change Detected!")
 
       if (adult.value && child.value && date.value) {
         if (props.bookingType == "student") {
@@ -63,14 +62,12 @@ export default {
       const response = await request.json()
 
       latestID.value = response["id"]
-      console.log(latestID)
       
       statusText.value = response["status"]
     }
 
     function Payment() {
       emit("updateBookingRoomId", latestID.value)
-      console.log("Sent!")
       router.push("/payment")
     }
 

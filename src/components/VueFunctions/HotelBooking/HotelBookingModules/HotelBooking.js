@@ -67,7 +67,6 @@ export default {
             errorMessage.value = "Your Dates Are In The Wrong Order!"
           } else if (newTotal != 0) {
             emit("updatePrice", newTotal)
-            console.log(guests.value)
             buttonDisabled.value = false;
           } else {
             buttonDisabled.value = true;
@@ -91,8 +90,6 @@ export default {
     let guestCount = guests.value;
     let singleBed = single.value;
     let doubleBed = double.value;
-
-    console.log(guests.value)
 
     let request = await fetch("http://127.0.0.1:5001/hotelbooking", {
       method: "POST",

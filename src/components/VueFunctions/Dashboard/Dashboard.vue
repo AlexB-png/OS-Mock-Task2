@@ -339,8 +339,6 @@
 
         deleteCount += 1
 
-        console.log("Works")
-
         if (deleteCount < 2) {
           deleteText.value = messages[deleteCount]
         } else {
@@ -362,8 +360,6 @@
             deleteText.value = "Failed!"
             alert(response['message'])
           } else {
-            console.log(response["Status"])
-            console.log(response["message"])
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             emit("logOut")
@@ -419,7 +415,6 @@
       // Get Loyalty Points //
       const LoyaltyPoints = ref("")
       async function GetLoyalty() {
-        console.log("Getting Loyalty Points")        
         let request = await fetch("http://127.0.0.1:5001/checkloyalty", {
           method: "POST",
           headers: {
@@ -437,12 +432,8 @@
       // This runs if rendered page is bookings //
       watch(() => props.dashboardOption, (NewValue) => {
         if (NewValue === 'bookings') {
-          console.log("Get Bookings");
           GetBookings()
           GetLoyalty()
-        }
-        else {
-          console.log("No fetch :(");
         }
       }, { immediate : true })
 

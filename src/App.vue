@@ -28,7 +28,7 @@
 
     --green-light : rgb(122, 134, 119);
 
-    --green-text : rgb(63, 74, 60);
+    --green-text : rgb(79, 69, 82) ;
 
     --green-lighter : rgb(102, 114, 99)
   }
@@ -237,7 +237,6 @@
       const BookedRoomID = ref(0)
 
       const UpdateBookedRoomID = (BookedRoom) => {
-        console.log(BookedRoom)
         BookedRoomID.value = BookedRoom
       }
       //
@@ -257,7 +256,6 @@
         usernameTopBar.value = user;
         username.value = user;
         color.value = "rgb(0,100,0)"
-        console.log(user)
       }
 
       const logOut = () => {
@@ -273,11 +271,9 @@
 
       const updateBookingType = (booking) => {
         bookingType.value = booking
-        console.log(bookingType.value)
       }
 
       const showOverlay = () => {
-        console.log("Overlay Active")
         if (overlayShown.value == "flex") {
           overlayShown.value = "none";
         } else {
@@ -287,7 +283,6 @@
       }
 
       const dashBoardButton = () => {
-        console.log(event.srcElement.id);
         dashBoardOption.value = event.srcElement.id;
 
         showOverlay()

@@ -200,7 +200,6 @@
         })
 
         request = await request.json()
-        console.log(request["message"])
 
         if (request["message"] == 'Success!') {
           router.push("/")
@@ -217,6 +216,7 @@
             Username : props.userName,
           })
         })
+      
 
         request = await request.json()
         
@@ -240,11 +240,7 @@
             Username : props.userName,
           })
         })
-        console.log(request)
-        } else {
-          console.log("Nope!")
-        }
-      }
+      }}
 
       return { CardholderName , CardNum , CVV , ExpiryDate , BillAddress , CardInputButton , ClaimLoyalty}
     }

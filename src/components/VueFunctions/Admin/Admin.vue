@@ -156,8 +156,6 @@
       const adminStatus = ref(false)
       
       onMounted(() => {
-        console.log("Beep Boop checking you are an admin")
-
         // Just send them back to / if they arent logged in
         if (! props.userName) {
           router.push("/")

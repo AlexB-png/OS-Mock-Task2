@@ -3,17 +3,12 @@ import { ref } from 'vue'
   export default {
     name: 'LoginPage',
       setup(_, { emit }) {
-        let status = ref("")
-        let statusColor = ref("rgb(0,0,0)")
-        let username = ref("")
-        let password = ref("")
+        const status = ref("")
+        const statusColor = ref("rgb(0,0,0)")
+        const username = ref("")
+        const password = ref("")
 
       async function createAccount() {
-        // Get username and password from the inputs 
-        let username = document.getElementById("userInput").value
-        let password = document.getElementById("passInput").value
-        //
-        
         // Make a request with username and password as parameters
         let request = await fetch("http://127.0.0.1:5001/createaccount", {
           method: "POST",
@@ -21,8 +16,8 @@ import { ref } from 'vue'
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            username: username,
-            password: password
+            username: username.value,
+            password: password.value
           })
         })
         //
@@ -38,11 +33,6 @@ import { ref } from 'vue'
       }
 
       async function loginButton() {
-        // Get username and password from the inputs 
-        let username = document.getElementById("userInput").value
-        let password = document.getElementById("passInput").value
-        //
-
         // Make a request with username and password as parameters
         let request = await fetch("http://127.0.0.1:5001/login", {
           method: "POST",
@@ -50,8 +40,8 @@ import { ref } from 'vue'
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            username: username,
-            password: password
+            username: username.value,
+            password: password.value
           })
         })
         //
@@ -66,8 +56,7 @@ import { ref } from 'vue'
         //
 
         if (status.value == 'Successfully Logged In') {
-          emit('updateTopBar', username)
-          console.log(username)
+          emit('updateTopBar', username.value)
         }
       }
 
