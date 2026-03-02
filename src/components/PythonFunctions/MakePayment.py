@@ -30,8 +30,6 @@ def addToDB(cardName, expiry, billingAddress, username, bookingType, bookingID):
 
   account_id = cursor.execute("SELECT Account_ID FROM Accounts WHERE Username = ?", (username,)).fetchone()[0]
 
-  cursor.execute("INSERT INTO Bank_Details (Name,Expiration,Address,Account_ID) VALUES (?,?,?,?)", (cardName, expiry, billingAddress, account_id))
-
   if bookingType == "hotel":
     cursor.execute(
       "UPDATE Hotel_Bookings SET Paid = 1 WHERE Booking_ID = ?",

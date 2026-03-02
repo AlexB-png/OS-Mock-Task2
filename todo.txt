@@ -1,5 +1,0 @@
-Make the banking deletion system
-
-Admin Panel
-
-Success message for deleting booking
