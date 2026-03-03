@@ -5,7 +5,7 @@ Start Python Server
 python src/Backend.py
 
 Promote user
-src/components/PythonFunctions/PromoteUser.py
+src/Promote.py
 
 Create Database
 src/components/PythonFunctions/CreateDB.py
