@@ -1,2 +1,3 @@
 venv
 src/DataBase.db
+src/components/PythonFunctions/__pycache__

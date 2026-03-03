@@ -1,0 +1,104 @@
+  <main>
+    <div class="content">
+      <div v-if="dashboardOption == 'bookings'" class="bookings">
+        <span class="montserrat title">Bookings Page</span>
+        <span class="montserrat">Loyalty Points: {{ LoyaltyPoints }}</span>
+
+        <div class="columns">
+          <div class="column1">
+            <span class="montserrat columnTitle">Hotel Bookings</span>
+
+            <div class="hotelBookings">
+              <div v-for="x in HotelBookings" class="HotelDates">
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Start Date</span>
+                  <span class="montserrat">{{ x.start_date }}</span>
+                </div>
+                
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">End Date</span>
+                  <span class="montserrat">{{ x.end_date }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Booking ID</span>
+                  <span class="montserrat">{{ x.Booking_ID }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Room Number</span>
+                  <span class="montserrat">{{ x.room_number }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Cost</span>
+                  <span class="montserrat">{{ x.cost }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column2">
+            <span class="montserrat columnTitle">Zoo Bookings</span>
+
+            <div class="zooBookings">
+              <div v-for="y in ZooBookings" class="zooDates">
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Date</span>
+                  <span class="montserrat">{{ y.Date }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Adult</span>
+                  <span class="montserrat">{{ y.Adult }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Child</span>
+                  <span class="montserrat">{{ y.Child }}</span>
+                </div> 
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Cost</span>
+                  <span class="montserrat">{{ y.Cost }}</span>
+                </div>
+
+                <div class="object">
+                  <span style="text-decoration: underline;" class="montserrat">Booking ID</span>
+                  <span class="montserrat">{{ y.Booking_ID }}</span>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else-if="dashboardOption == 'cancel'" class="cancel">
+        <span class="title montserrat">Cancel Your Bookings!</span>
+        <span class="welcome montserrat">Welcome {{ userName }}!</span>
+
+        <select class="montserrat" v-model="BookingType">
+          <option class="montserrat" value="hotel">Hotel</option>
+          <option class="montserrat" value="zoo">Zoo</option>
+        </select>
+
+        <div class="row">
+          <span class="montserrat IdSpan">Booking ID:</span>
+          <input class="montserrat" v-model="BookingId" type="number">
+        </div>
+
+        <button class="montserrat" v-on:click="deleteBooking" :disabled="!(BookingType && BookingId)">Delete Your Booking!</button>
+
+        <span class="status montserrat">{{BookingStatus}}</span>
+      </div>
+
+      <div v-else-if="dashboardOption == 'settings'" class="settings">
+        <button v-on:click="adminCheck" class="montserrat" :disabled="! userName">Admin Panel!</button>
+        <button v-on:click="deleteButton" class="montserrat" :disabled="! userName">{{ deleteText }}</button>
+      </div>
+
+      <div v-else>
+        <h1>Your Selection Has Been Lost, Please Try Again!</h1>
+      </div>
+    </div>
+  </main>

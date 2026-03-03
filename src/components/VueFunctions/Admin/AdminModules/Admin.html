@@ -1,0 +1,40 @@
+  <body>
+    <main>
+      <div class="content">
+        <div v-if="adminStatus != false" class="AdminContent">
+          <span class="title montserrat">Welcome Admin!</span>
+
+          <div class="objects">
+            <div class="object">
+              <span class="ObjectTitle montserrat">Cancel Hotel Booking</span>
+
+              <select class="montserrat option" v-model="CancelOption">
+                <option class="montserrat" value="hotel">Hotel</option>
+                <option class="montserrat" value="zoo">Zoo</option>
+              </select>
+              
+              <div class="ObjectColumns">
+                <div class="ColumnsObject">
+                  <h1>Booking ID:</h1>
+                  <input type="number" class="montserrat" v-model="HotelCancelId">
+                </div>
+
+                <div class="ColumnsObject">
+                  <h1>Username:</h1>
+                  <input type="text" v-model="HotelCancelUser" class="montserrat">
+                </div>
+              </div>
+
+              <button class="HotelCancelButton montserrat" v-on:click="HotelDeleteBooking">{{StatusMessage}}</button>
+              
+            </div>
+          </div>
+        </div>
+        
+        <div v-else>
+          <h1>You are not an admin!</h1>
+        </div>
+        
+      </div>
+    </main>
+  </body>
