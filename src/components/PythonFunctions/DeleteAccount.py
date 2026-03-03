@@ -1,6 +1,7 @@
 from .BaseFunctions import Databases, connect, Colors
 import sqlite3 as sql
 
+##  Delete account and all related data to accounts ##
 def DeleteAccount(username):
   connection, cursor , locations = connect()
 
